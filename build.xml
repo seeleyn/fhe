@@ -1,4 +1,4 @@
-<project default="compile">
+<project default="jar">
 
   <!--
   <path id="class.path">
@@ -23,6 +23,14 @@
         <attribute name="Main-class" value="fhe.Main"/>
       </manifest>
     </jar>
+  </target>
+ 
+
+  <target name="run" depends="jar">
+    <java jar="dist/fhe.jar" fork="true">
+      <arg value="sampleInput/sample.csv"/>
+      <arg value="6"/>
+    </java>
   </target>
 
 </project>
