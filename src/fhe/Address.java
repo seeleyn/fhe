@@ -9,7 +9,12 @@
 
 package fhe;
 
+import java.util.Map;
 import java.util.Scanner;
+
+import net.sourceforge.jgeocoder.AddressComponent;
+import net.sourceforge.jgeocoder.us.AddressParser;
+import net.sourceforge.jgeocoder.us.AddressStandardizer;
 
 /**
  *
@@ -89,4 +94,13 @@ public class Address implements Comparable<Address>
         return number + " "+ street + " "+ unitStr;
     }
 
+    public static void main(String[] args) {
+    	System.out.println("Testing address parsing of jgeocoder...");
+    	Map parsedAddr  = AddressParser.parseAddress("Google Inc, 1600 Amphitheatre Parkway, Mountain View, CA 94043");
+        System.out.println(parsedAddr);
+        
+        Map<AddressComponent, String> normalizedAddr  = AddressStandardizer.normalizeParsedAddress(parsedAddr); 
+        System.out.println(normalizedAddr);
+    }
+    
 }
