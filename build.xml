@@ -1,0 +1,28 @@
+<project default="compile">
+
+  <!--
+  <path id="class.path">
+    <fileset dir="lib" includes="*.jar" />
+  </path>-->
+
+  <target name="clean">
+    <delete dir = "dist" />
+  </target>
+
+  <target name="compile">
+    <mkdir dir="dist/bin"/>
+    <javac srcdir="src" destdir="dist/bin" source="1.6" target="1.6" optimize="true" debug="true">
+      <!--<classpath refid="class.path"/>-->
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <mkdir dir="dist"/>
+    <jar destfile="dist/fhe.jar" basedir="dist/bin">
+      <manifest>
+        <attribute name="Main-class" value="fhe.Main"/>
+      </manifest>
+    </jar>
+  </target>
+
+</project>
