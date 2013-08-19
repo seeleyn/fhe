@@ -11,7 +11,6 @@ package fhe;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 
 /**
  *
@@ -100,7 +99,7 @@ public class Main
     }
     
     
-    private static void createCSVFile(List<Group> groups, String fileName) throws Exception
+    static void createCSVFile(List<Group> groups, String fileName) throws Exception
     {
         PrintWriter out = new PrintWriter(new FileOutputStream(fileName));
         out.println(Column.toHeaderString());

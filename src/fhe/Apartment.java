@@ -10,14 +10,13 @@
 package fhe;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  *
  * @author n8
  */
-public class Apartment implements Comparable
+public class Apartment implements Comparable<Apartment>
 {
     List<Person> residents = new ArrayList<Person>();
     
@@ -86,15 +85,10 @@ public class Apartment implements Comparable
         }        
     }
 
-    public int compareTo(Object o) 
-    {
-        if (o instanceof Apartment)
-        {
-            Apartment other = (Apartment) o;
-            return address.toString().compareTo(other.address.toString());
-        }
-        throw new IllegalArgumentException("input param must be an addr3ess");
-    }
+	public int compareTo(Apartment o) {
+		Apartment other = (Apartment) o;
+		return address.toString().compareTo(other.address.toString());
+	}
     
     
     public int getPreAssignedGroupNum()

@@ -9,17 +9,14 @@
 
 package fhe;
 
-import java.util.Comparator;
 import java.util.Scanner;
 
 /**
  *
  * @author n8
  */
-public class Address implements Comparable
+public class Address implements Comparable<Address>
 {
-
-    private String addressString;
 
     private int number = 0;
     
@@ -29,13 +26,11 @@ public class Address implements Comparable
     
     /** Creates a new instance of Address */
     public Address(String address_) throws Exception
-    {
-        
-        addressString = address_;    
+    {   
         Scanner scanner = new Scanner(address_);
         number = scanner.nextInt();
         street = parseStreet(address_);
-        if (street != street.ALPINE_LOOP && street != street.ALPINE_WAY)
+        if (street != Street.ALPINE_LOOP && street != Street.ALPINE_WAY)
         {
             //parse the unit number unless this is an alpine street
             if (!address_.contains("#"))
@@ -43,7 +38,7 @@ public class Address implements Comparable
             String unitStr = address_.substring(address_.lastIndexOf('#')+1,address_.length());
             unit = Integer.parseInt(unitStr);
         }
-        if (street == street._1080_S && address_.contains("1676"))
+        if (street == Street._1080_S && address_.contains("1676"))
             number = 1676; //sometimes 1676 east 1080 south is written as 1080 south 1676 east
     }
     
@@ -83,10 +78,8 @@ public class Address implements Comparable
     }
     
     
-    public int compareTo(Object obj)
+    public int compareTo(Address obj)
     {
-        if (!(obj instanceof Address))
-            return 1;
         return toString().compareTo(obj.toString());
     }
     
