@@ -32,7 +32,14 @@ public class Main
      */
     public static void main(String[] args)  throws Exception
     {                
-        List<Person> persons =  parseFile("sampleInput/sample.csv");
+    	if (args.length < 2) {
+    		System.err.println("Usage: <input csv> <num of fhe groups>");
+    		System.err.println("Example  ./fhe sampleInput/wardList.csv 6");
+    		System.exit(1);
+    	}
+    	String inputFile = args[0];
+    	int numOfGroups = Integer.parseInt(args[1]);
+        List<Person> persons =  parseFile(inputFile);
         System.out.println("read in "+persons.size()+" persons");
         List<Apartment> apts = putIntoApts(persons);
         Collections.sort(apts);
