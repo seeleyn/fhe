@@ -12,10 +12,8 @@ package fhe;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import net.sourceforge.jgeocoder.AddressComponent;
 import net.sourceforge.jgeocoder.us.AddressParser;
-import net.sourceforge.jgeocoder.us.AddressStandardizer;
 
 /**
  * 
@@ -38,11 +36,9 @@ public class Address2 implements Comparable<Address> {
 	/** Creates a new instance of Address */
 	public Address2(String address_) {
 		if (address_ == null) {
-			throw new IllegalArgumentException(
-					"address parameter cannot be null");
+			throw new IllegalArgumentException("address parameter cannot be null");
 		}
-		Map<AddressComponent, String> parsedAddr = AddressParser
-				.parseAddress(address_);
+		Map<AddressComponent, String> parsedAddr = AddressParser.parseAddress(address_);
 		number = Integer.parseInt(parsedAddr.get(AddressComponent.NUMBER));
 		StringBuilder streetBuilder = new StringBuilder();
 		if (parsedAddr.get(AddressComponent.PREDIR) != null) {
@@ -50,14 +46,12 @@ public class Address2 implements Comparable<Address> {
 		}
 		streetBuilder.append(parsedAddr.get(AddressComponent.STREET));
 		if (parsedAddr.get(AddressComponent.POSTDIR) != null) {
-			streetBuilder
-					.append(" " + parsedAddr.get(AddressComponent.POSTDIR));
+			streetBuilder.append(" " + parsedAddr.get(AddressComponent.POSTDIR));
 		}
 		if (parsedAddr.get(AddressComponent.TYPE) != null) {
-			streetBuilder
-					.append(" " + parsedAddr.get(AddressComponent.TYPE));
+			streetBuilder.append(" " + parsedAddr.get(AddressComponent.TYPE));
 		}
-		
+
 		street = streetBuilder.toString();
 
 		String line2 = parsedAddr.get(AddressComponent.LINE2);
@@ -81,45 +75,44 @@ public class Address2 implements Comparable<Address> {
 		zipCode = parsedAddr.get(AddressComponent.ZIP);
 	}
 
+	public Address2(int number_, String street_, String unit_, String city_, String state_, String zipCode_) {
+		this.number = number_;
+		this.street = street_;
+		this.unit = unit_;
+		this.city = city_;
+		this.state = state_;
+		this.zipCode = zipCode_;
+	}
+
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Address)) {
+		if (!(obj instanceof Address2)) {
 			return false;
 		}
 		Address2 other = (Address2) obj;
 		if (number != other.number)
 			return false;
 
-		if (street != null) {
-			return street.equals(other.street);
-		} else if (other.street != null) {
+		if (!Utils.stringEquals(street, other.street)) {
 			return false;
 		}
 
-		if (unit != null) {
-			return unit.equals(other.unit);
-		} else if (other.unit != null) {
+		if (!Utils.stringEquals(unit, other.unit)) {
+			return false;
+		}		
+		
+		if (!Utils.stringEquals(city, other.city)) {
 			return false;
 		}
 
-		if (city != null) {
-			return city.equals(other.city);
-		} else if (other.city != null) {
+		if (!Utils.stringEquals(state, other.state)) {
 			return false;
 		}
 
-		if (state != null) {
-			return state.equals(other.state);
-		} else if (other.state != null) {
+		if (!Utils.stringEquals(zipCode, other.zipCode)) {
 			return false;
 		}
 
-		if (zipCode != null) {
-			return zipCode.equals(other.zipCode);
-		} else if (other.zipCode != null) {
-			return false;
-		}
-
-		return false;
+		return true;
 	}
 
 	public int compareTo(Address obj) {
@@ -128,7 +121,7 @@ public class Address2 implements Comparable<Address> {
 
 	public String toString() {
 		String unitStr = (unit != null) ? "#" + unit : "";
-		return number + " " + street + " " + unitStr;
+		return number + " " + street + " " + unitStr + ", " + city + ", " + state + " " + zipCode;
 	}
 
 	public int getNumber() {
@@ -153,17 +146,6 @@ public class Address2 implements Comparable<Address> {
 
 	public String getZipCode() {
 		return zipCode;
-	}
-
-	public static void main(String[] args) {
-		System.out.println("Testing address parsing of jgeocoder...");
-		Map parsedAddr = AddressParser
-				.parseAddress("Google Inc, 1600 Amphitheatre Parkway, Mountain View, CA 94043");
-		System.out.println(parsedAddr);
-
-		Map<AddressComponent, String> normalizedAddr = AddressStandardizer
-				.normalizeParsedAddress(parsedAddr);
-		System.out.println(normalizedAddr);
 	}
 
 }

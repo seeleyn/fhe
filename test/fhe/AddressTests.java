@@ -26,16 +26,26 @@ public class AddressTests {
 
 		assertEquals("1", "1");
 	}
+	
+	@Test
+	public void testEquals() {
+		Address2 addr1 = new Address2(2052,"California Ave","7","Provo","Utah","84606");
+		assertTrue(addr1.equals(new Address2(2052,"California Ave","7","Provo","Utah","84606")));
+		
+		assertFalse(addr1.equals(null));
+		assertFalse(addr1.equals("bogus"));		
+		assertFalse(addr1.equals(new Address2(0,"California Ave","7","Provo","Utah","84606")));
+		assertFalse(addr1.equals(new Address2(2052,"Bogus","7","Provo","Utah","84606")));
+		assertFalse(addr1.equals(new Address2(2052,"California Ave","Bogus","Provo","Utah","84606")));
+		assertFalse(addr1.equals(new Address2(2052,"California Ave","7","Bogus","Utah","84606")));
+		assertFalse(addr1.equals(new Address2(2052,"California Ave","7","Provo","Bogus","84606")));
+		assertFalse(addr1.equals(new Address2(2052,"California Ave","7","Provo","Utah","Bogus")));
+	}
 
 	@Test
 	public void testAddressConstructor() {
 		Address2 address = new Address2("2052 California Ave Apt 7 Provo, Utah 84606");
-		assertEquals(2052, address.getNumber());
-		assertEquals("California Ave", address.getStreet());
-		assertEquals("7", address.getUnit());
-		assertEquals("Provo", address.getCity());
-		assertEquals("Utah", address.getState());
-		assertEquals("84606", address.getZipCode());
+		assertEquals(new Address2(2052,"California Ave","7","Provo","Utah","84606"), address);
 	}
 
 }
