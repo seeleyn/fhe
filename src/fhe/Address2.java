@@ -39,7 +39,10 @@ public class Address2 implements Comparable<Address> {
 			throw new IllegalArgumentException("address parameter cannot be null");
 		}
 		Map<AddressComponent, String> parsedAddr = AddressParser.parseAddress(address_);
-		number = Integer.parseInt(parsedAddr.get(AddressComponent.NUMBER));
+		if (parsedAddr == null) {
+			throw new IllegalArgumentException("Cannot parse address '"+address_+"'");
+		}
+		number = Utils.safeParseInt(parsedAddr.get(AddressComponent.NUMBER), 0);
 		StringBuilder streetBuilder = new StringBuilder();
 		if (parsedAddr.get(AddressComponent.PREDIR) != null) {
 			streetBuilder.append(parsedAddr.get(AddressComponent.PREDIR) + " ");
@@ -70,9 +73,14 @@ public class Address2 implements Comparable<Address> {
 			}
 		}
 
-		city = parsedAddr.get(AddressComponent.CITY);
-		state = parsedAddr.get(AddressComponent.STATE);
-		zipCode = parsedAddr.get(AddressComponent.ZIP);
+		if (parsedAddr.get(AddressComponent.CITY) != null) 
+			city = parsedAddr.get(AddressComponent.CITY);
+		
+		if (parsedAddr.get(AddressComponent.STATE) != null) 
+			state = parsedAddr.get(AddressComponent.STATE);		
+			
+		if (parsedAddr.get(AddressComponent.ZIP) != null)
+			zipCode = parsedAddr.get(AddressComponent.ZIP);
 	}
 
 	public Address2(int number_, String street_, String unit_, String city_, String state_, String zipCode_) {
@@ -98,8 +106,8 @@ public class Address2 implements Comparable<Address> {
 
 		if (!Utils.stringEquals(unit, other.unit)) {
 			return false;
-		}		
-		
+		}
+
 		if (!Utils.stringEquals(city, other.city)) {
 			return false;
 		}

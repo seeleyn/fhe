@@ -1,27 +1,8 @@
-1344 S 1500 E Provo, Utah 84606 
-1344 S. 1500 E. Provo, Utah 84606 
-1345 S 1400 E Provo, Utah 84606 
-1346 N 1370 E Provo, Utah 84606 
-1346 S 1370 E Provo, Utah 84606 
-1379 S 1470 E  ,
-1379 S 1470 E Provo, Utah 84606 
-1398 S 1470 E APT B Provo, Utah 84606 
-1402 S 1470 E Provo, Utah 84606 
-1420 E 1320 S Provo, Utah 84606 
-1424 S 1420 E Provo, Utah 84606 
-1436 S. State St. Provo, Utah 84606 
-1441 E 1440 S Provo, Utah 84606 
-1445 E 1440 S Provo, Utah 84606 
-1447 E 1440 S Provo, Utah 84606 
-1448 E 1370 S Provo, Utah 
-1458 East 1320 South Provo, Utah 84606 
-1461 E 1370 S Provo, Utah 84606 
-1462 E 1320 S Provo, Utah 84606 
-1462 E 1370 S Provo, Utah 84606 
-1462 East 1320 South Provo, Utah 84606 
-1465 E 1370 S Provo, Utah 84606 
-1483 E 1370 S Provo, Utah 84606 
-1483 S 1370 E Provo, Utah 84606 
+address = new Address2("");
+		assertEquals(new Address2(,"","","Provo","Utah","84606"), address);
+
+
+
 1747 S Oregon Ave Provo, Utah 84606 
 1857 Nevada Ave Provo, Utah 84606 
 1857 S Nevada Ave Provo, Utah 84606 
@@ -59,5 +40,13 @@
 2416 S Tennessee ave Provo, Utah 84606 
 2416 Tennessee Ave Provo, Utah 84606 
 2422 Tenessee Ave Provo, Utah 84606 
-,Already Have Callings       
+
+----------------------
+Problem addresses
+----------------------
+1344 S. 1500 E. Provo, Utah 84606 //note the periods after S. and E.
 Provo, Utah 84606  
+1379 S 1470 E  ,
+1398 S 1470 E APT B Provo, Utah 84606 
+1458 East 1320 South Provo, Utah 84606 // East and South are spelled out
+

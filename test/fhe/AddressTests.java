@@ -46,6 +46,25 @@ public class AddressTests {
 	public void testAddressConstructor() {
 		Address2 address = new Address2("2052 California Ave Apt 7 Provo, Utah 84606");
 		assertEquals(new Address2(2052,"California Ave","7","Provo","Utah","84606"), address);
+		
+		address = new Address2("1344 S 1500 E Provo, Utah 84606");
+		assertEquals(new Address2(1344,"S 1500 E",null,"Provo","Utah","84606"), address);
+		
+		address = new Address2("1436 S. State St. Provo, Utah 84606");
+		assertEquals(new Address2(1436,"S State St",null,"Provo","Utah","84606"), address);
+		
+		address = new Address2("1448 E 1370 S Provo, Utah");
+		assertEquals(new Address2(1448,"E 1370 S",null,"Provo","Utah","84606"), address);
+		
+		//address = new Address2("1458 East 1320 South Provo, Utah 84606 ");
+		//assertEquals(new Address2(1458,"E 1320 S",null,"Provo","Utah","84606"), address);
+		
+		address = new Address2("1465 E 1370 S Provo, Utah 84606");
+		assertEquals(new Address2(1465,"E 1370 S",null,"Provo","Utah","84606"), address);
+
+		address = new Address2("1747 Oregon Ave Provo, Utah 84606");
+		assertEquals(new Address2(1747,"Oregon Ave",null,"Provo","Utah","84606"), address);
+
 	}
 
 }

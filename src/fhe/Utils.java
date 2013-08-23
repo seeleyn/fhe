@@ -10,4 +10,15 @@ public class Utils {
 		}
 	}
 	
+	public static int safeParseInt(String input, int defaultValue) {
+		if (input != null) {
+			try {
+				return Integer.parseInt(input);
+			} catch (Throwable th) {
+				th.printStackTrace();
+			}
+		}
+		return defaultValue;
+	}
+	
 }
