@@ -64,6 +64,48 @@ public class AddressTests {
 
 		address = new Address2("1747 Oregon Ave Provo, Utah 84606");
 		assertEquals(new Address2(1747,"Oregon Ave",null,"Provo","Utah","84606"), address);
+		
+		address = new Address2("1857 Nevada Ave Provo, Utah 84606");
+		assertEquals(new Address2(1857,"Nevada Ave",null,"Provo","Utah","84606"), address);
+
+		address = new Address2("1968 Washington Ave. Provo, Utah 84606");
+		assertEquals(new Address2(1968,"Washington Ave",null,"Provo","Utah","84606"), address);
+		
+		address = new Address2("2022 Park Street Provo, Utah 84601");
+		assertEquals(new Address2(2022,"Park Street",null,"Provo","Utah","84601"), address);
+		
+		address = new Address2("2052 California Ave #7 Provo, Utah 84606");
+		assertEquals(new Address2(2052,"California Ave","7","Provo","Utah","84606"), address);
+		
+		address = new Address2("2052 California Ave Apt 7 Provo, Utah 84606 ");
+		assertEquals(new Address2(2052,"California Ave","7","Provo","Utah","84606"), address);
+
+		address = new Address2("2057 Arizona Ave Provo, Utah 84606");
+		assertEquals(new Address2(2057,"Arizona Ave",null,"Provo","Utah","84606"), address);
+
+		address = new Address2("2083 California Ave Apt C Provo, Utah 84606");
+		assertEquals(new Address2(2083,"California Ave","C","Provo","Utah","84606"), address);
+
+		address = new Address2("2144 Dakota Ave Apt A Provo, Utah 84606");
+		assertEquals(new Address2(2144,"Dakota Ave","A","Provo","Utah","84606"), address);
+		
+		address = new Address2("2144 Nevada Ave #2 Provo, Utah 84606");
+		assertEquals(new Address2(2144,"Nevada Ave","2","Provo","Utah","84606"), address);
+
+		address = new Address2("2173 State St Apt 1 Provo, Utah 84606 ");
+		assertEquals(new Address2(2173,"State St","1","Provo","Utah","84606"), address);
+
+		address = new Address2("2416 Tennessee Ave Provo, Utah 84606");
+		assertEquals(new Address2(2416,"Tennessee Ave",null,"Provo","Utah","84606"), address);
+		
+		address = new Address2("1015 Canyon Meadow Dr #6");
+		assertEquals(new Address2(1015,"Canyon Meadow Dr","6","Provo","Utah","84606"), address);
+
+		//address = new Address2("1015 Canyon Meadow Dr#6");
+		//assertEquals(new Address2(1015,"Canyon Meadow Dr","6","Provo","Utah","84606"), address);
+		
+
+
 
 	}
 

@@ -1,45 +1,132 @@
 address = new Address2("");
 		assertEquals(new Address2(,"","","Provo","Utah","84606"), address);
 
-
-
-1747 S Oregon Ave Provo, Utah 84606 
-1857 Nevada Ave Provo, Utah 84606 
-1857 S Nevada Ave Provo, Utah 84606 
-1952 Nevada Ave Provo, Utah 84606 
-1968 Washington Ave. Provo, Utah 84606 
-2002 S Nevada Ave Provo, Utah 84606 
-2022 Park Street Provo, Utah 84601 
-2052 California Ave #7 Provo, Utah 84606 
-2052 California Ave Apt 7 Provo, Utah 84606 
-2052 California Ave Provo, Utah 84606 
-2057 Arizona Ave Provo, Utah 84606 
-2061 Oregon Ave Provo, Utah 84606 
-2083 California Ave Apt C Provo, Utah 84606 
-2124 Alaska Ave Provo, Utah 84606 
-2124 Dakota Ave Provo, Utah 84606 
-2130 S Alaska Ave Provo, Utah 84606 
-2144 Dakota Ave Apt A Provo, Utah 84606 
-2144 Dakota Ave Apt B Provo, Utah 84606 
-2144 Dakota Ave Apt C Provo, Utah 84606 
-2144 Dakota Ave Apt D Provo, Utah 84606 
-2144 Nevada Ave #2 Provo, Utah 84606 
-2144 S Dakota Ave #B Provo, Utah 84606 
-2158 S Dakota Ave Provo, 84606 
-2173 State St Apt 1 Provo, Utah 84606 
-2176 S Alaska Ave Provo, Utah 84606 
-2182 Alaska Ave Provo, Utah 84606 
-2195 Dakota Ave Provo, Utah 84606 
-2216 Dakota Ave Provo, Utah 84606 
-2216 Dakota Provo, Utah 84604 
-2232 Dakota Ave Provo, Utah 84606 
-2286 Texas Ave Provo, Utah 84606 
-2298 Texas Ave Provo, Utah 84606 
-2333 Tennessee Ave Provo, Utah 84606 
-2352 Dakota Ave Provo, Utah 84606 
-2416 S Tennessee ave Provo, Utah 84606 
-2416 Tennessee Ave Provo, Utah 84606 
-2422 Tenessee Ave Provo, Utah 84606 
+1028 Canyon Vista #7
+1028 Canyon Vista Rd #7
+1028 S Canyon Vista Dr #8
+1028 S. Canyon Vista Dr. #8
+1028 S Canyon Vista Rd #10
+1028 S Canyon Vista Rd #2
+1028 S Canyon Vista Rd #7
+1028 S Canyon Vista Rd #8
+1028 S Canyon Vista Rd #9
+1034 S Canyon Meadow Dr #3
+1043 S Canyon Meadow Dr #1
+1043 S Canyon Meadow Dr #6
+1052 Canyon Meadow Dr. #3
+1052 S Canyon Meadow Dr #2
+1052 S Canyon Meadow Dr. #3
+1061 S Canyon Meadow #3
+1061 S Canyon Meadow Dr #1
+1061 S Canyon Meadow Dr #2
+1061 S Canyon Meadow Dr #3
+1061 S Canyon Meadows Dr #3
+1068 Canyon Meadow Dr #3
+1068 Canyon Meadow Dr #6
+1068 Canyon Meadow Dr. #6
+1068 Canyon Meadow Dr #7
+1068 Canyon Meadow Dr. #7
+1068 S Canyon Meadow Dr #1
+1068 S Canyon Meadow Dr #4
+1068 S. Canyon Meadow Dr #4
+1068 S Canyon Meadow Dr #7
+1068 S Canyon Meadow Dr #8
+1077 Canyon Meadow #4
+1077 Canyon Meadow Dr #4
+1077 Canyon Meadow Dr #5
+1077 Canyon Meadow Dr. #5
+1077 Canyon Meadow Dr. #8
+1077 S Canyon Meadow Dr #4
+1077 S Canyon Meadow Dr #7
+1077 S Canyon Meadow Dr #8
+1080 S 1676 E #6
+1104 Meadow Fork Rd #10
+1104 Meadow Fork Rd #3
+1104 Meadow Fork Rd #9
+1104 S Meadow Fork Rd. #3
+1104 S Meadow Fork Rd #7
+1132 S Canyon Meadow Dr #7
+1138 S Meadow Fork Dr #6
+1138 S Meadow Fork Rd #2
+1138 S Meadow Fork Rd. #3
+1138 S Meadow Fork Rd #6
+1138 S Meadow Fork Rd #8
+1145 Canyon Meadow Dr #2
+1145 Canyon Meadow Dr #9
+1145 Meadow Fork Rd #1
+1145 S Canyon Meadow Dr #7
+1145 S Meadow Fork Rd #1
+1145 S Meadow Fork Rd #10
+1145 S Meadow Fork Rd. #10
+1145 S Meadow Fork Rd #2
+1145 S Meadow Fork Rd #3
+1145 S Meadow Fork Rd #6
+1145 S Meadow Fork Rd #7
+1145 S Meadow Fork Rd #9
+1166 Canyon Meadow Dr #2
+1166 S Canyon Meadow Dr #2
+1174 S Meadow Fork #6
+1174 S Meadow Fork #8
+1174 S Meadow Fork Rd #1
+1174 S Meadow Fork Rd #2
+1174 S Meadow Fork Rd. #2
+1174 S Meadow Fork Rd #6
+1174 S Meadow Fork Rd #8
+1174 S Meadow Fork Road #6
+1174 S Meadow For Rd#6
+1183 Canyon Meadow Dr. #6
+1183 S Canyon Meadow Dr #2
+1183 S Canyon Meadow Dr #4
+1183 S Canyon Meadow Dr #6
+1183 S Canyon Meadow Dr #8
+1183 S Canyon Meadow Dr. #8
+1183 S Canyon Meadow Dr #9
+1197 Meadow Fork Rd #1
+1197 Meadow Fork Rd. #1
+1197 S Meadow Fork Rd #1
+1208 Meadow Fork Rd. #1
+1208 Meadow Fork Rd #7
+1208 S Meadow Fork Rd #1
+1244 Alpine Way
+1244 S Alpine Way
+1247 Alpine Way
+1247 S Alpine Way
+1251 Alpine Way
+1251 S Alpine Way
+1252 Alpine Way
+1256 S Alpine Way
+1260 S Alpine Loop
+1268 Alpine Way
+1268 S. Alpine Way
+1268 W Alpine Way
+1276 S Alpine Loop
+1290 S Alpine Way
+1302 S Alpine Way
+1340 Alpine Loop
+1340 S Alpine Way
+1344 S Alpine Loop
+1345 S Alpine Loop
+1346 S Alpine Way
+1347 S Alpine Way
+1350 Alpine Loop
+1350 S Alpine Loop
+1350 S Alpine Way
+1352 Alpine Way
+1352 S Alpine Way
+1357 Alpine Loop
+1357 S Alpine Way
+1367 Alpine Loop
+1374 S Alpine Loop
+1383 S Alpine Way
+1394 S Alpine Way
+1406 S Alpine Way
+1676 E 1080 S #1
+1676 E 1080 S #2
+1676 E 1080 S #6
+1676 E 1080 S #7
+1676 E 1080 S #8
+1676 East 1080 South #1
+1676 East 1080 South #5
 
 ----------------------
 Problem addresses
@@ -49,4 +136,15 @@ Provo, Utah 84606
 1379 S 1470 E  ,
 1398 S 1470 E APT B Provo, Utah 84606 
 1458 East 1320 South Provo, Utah 84606 // East and South are spelled out
-
+1857 S Nevada Ave Provo, Utah 84606 // S. Nevada
+2130 S Alaska Ave Provo, Utah 84606 
+2144 S Dakota Ave #B Provo, Utah 84606 
+2158 S Dakota Ave Provo, 8460
+2173 State Street Apt 1 Provo, Utah 84606 //Street vs. St
+2176 S Alaska Ave Provo, Utah 84606 
+2216 Dakota Provo, Utah 84604 // No Ave
+2416 S Tennessee ave Provo, Utah 84606 //Ave vs. ave
+2422 Tenessee Ave Provo, Utah 84606  //Tenessee is misspelled
+1015 Canyon Meadow Drive #6 //Dr vs. Drive
+1015 Canyon Meadow Dr#6 //no space before #
+1015 S Canyon Meadow #7

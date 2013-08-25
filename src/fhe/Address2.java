@@ -32,12 +32,30 @@ public class Address2 implements Comparable<Address> {
 	private String state = "UT";
 
 	private String zipCode = "84606";
+	
+	private static String addCityStateZipIfNotPresent(String address_) {
+		if (address_==null) {
+			return null;
+		}
+		
+		String addr = address_.toUpperCase().trim();
+		//More hackery.... :(
+		Pattern pattern = Pattern.compile(".*PROVO.*UT.*");
+		Matcher matcher = pattern.matcher(addr);
+		if (!matcher.matches()) {
+			return address_ +" Provo, Utah 84606";
+		} else {
+			return address_;
+		}
+	}
 
 	/** Creates a new instance of Address */
 	public Address2(String address_) {
 		if (address_ == null) {
 			throw new IllegalArgumentException("address parameter cannot be null");
 		}
+		address_ = addCityStateZipIfNotPresent(address_);
+		
 		Map<AddressComponent, String> parsedAddr = AddressParser.parseAddress(address_);
 		if (parsedAddr == null) {
 			throw new IllegalArgumentException("Cannot parse address '"+address_+"'");
@@ -59,22 +77,19 @@ public class Address2 implements Comparable<Address> {
 
 		String line2 = parsedAddr.get(AddressComponent.LINE2);
 		if (line2 != null) {
-
-			Pattern pattern = Pattern.compile("^APT\\s+(\\w*)$");
-			Matcher matcher = pattern.matcher(line2.toUpperCase().trim());
-			if (matcher.find()) {
-				unit = matcher.group(1);
-			} else {
-				pattern = Pattern.compile("^#\\s+(\\w*)$");
-				matcher = pattern.matcher(line2.toUpperCase().trim());
-				if (matcher.find()) {
-					unit = matcher.group(1);
-				}
-			}
+			unit = parseApartmentNumber(line2);
 		}
 
-		if (parsedAddr.get(AddressComponent.CITY) != null) 
-			city = parsedAddr.get(AddressComponent.CITY);
+		if (parsedAddr.get(AddressComponent.CITY) != null) {
+			String cityString = parsedAddr.get(AddressComponent.CITY).trim();
+			if (cityString.toUpperCase().startsWith("APT") || cityString.toUpperCase().startsWith("#")) {
+				//TODO Fix this hack. It won't work unless the city is Provo, UT
+				unit = parseApartmentNumber(cityString);
+				city = "Provo";
+			} else {
+				city = parsedAddr.get(AddressComponent.CITY);
+			}
+		}
 		
 		if (parsedAddr.get(AddressComponent.STATE) != null) 
 			state = parsedAddr.get(AddressComponent.STATE);		
@@ -90,6 +105,30 @@ public class Address2 implements Comparable<Address> {
 		this.city = city_;
 		this.state = state_;
 		this.zipCode = zipCode_;
+	}
+	
+	/**
+	 * 
+	 * @param aptNumString of the form "Apt 7" or "#7"
+	 * @return
+	 */
+	private static String parseApartmentNumber(String aptNumString) {
+		String aptNum = null;
+		if (aptNumString != null) {
+
+			Pattern pattern = Pattern.compile("^APT\\s+(\\w+)");
+			Matcher matcher = pattern.matcher(aptNumString.toUpperCase().trim());
+			if (matcher.find()) {
+				aptNum = matcher.group(1);
+			} else {
+				pattern = Pattern.compile("^#\\s*(\\w+)");
+				matcher = pattern.matcher(aptNumString.toUpperCase().trim());
+				if (matcher.find()) {
+					aptNum = matcher.group(1);
+				}
+			}
+		}
+		return aptNum;
 	}
 
 	public boolean equals(Object obj) {
