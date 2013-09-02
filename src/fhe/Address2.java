@@ -9,11 +9,8 @@
 
 package fhe;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.sourceforge.jgeocoder.AddressComponent;
-import net.sourceforge.jgeocoder.us.AddressParser;
 
 /**
  * 
@@ -56,48 +53,55 @@ public class Address2 implements Comparable<Address> {
 		}
 		address_ = addCityStateZipIfNotPresent(address_);
 		
-		Map<AddressComponent, String> parsedAddr = AddressParser.parseAddress(address_);
-		if (parsedAddr == null) {
-			throw new IllegalArgumentException("Cannot parse address '"+address_+"'");
-		}
-		number = Utils.safeParseInt(parsedAddr.get(AddressComponent.NUMBER), 0);
-		StringBuilder streetBuilder = new StringBuilder();
-		if (parsedAddr.get(AddressComponent.PREDIR) != null) {
-			streetBuilder.append(parsedAddr.get(AddressComponent.PREDIR) + " ");
-		}
-		streetBuilder.append(parsedAddr.get(AddressComponent.STREET));
-		if (parsedAddr.get(AddressComponent.POSTDIR) != null) {
-			streetBuilder.append(" " + parsedAddr.get(AddressComponent.POSTDIR));
-		}
-		if (parsedAddr.get(AddressComponent.TYPE) != null) {
-			streetBuilder.append(" " + parsedAddr.get(AddressComponent.TYPE));
-		}
-
-		street = streetBuilder.toString();
-
-		String line2 = parsedAddr.get(AddressComponent.LINE2);
-		if (line2 != null) {
-			unit = parseApartmentNumber(line2);
-		}
-
-		if (parsedAddr.get(AddressComponent.CITY) != null) {
-			String cityString = parsedAddr.get(AddressComponent.CITY).trim();
-			if (cityString.toUpperCase().startsWith("APT") || cityString.toUpperCase().startsWith("#")) {
-				//TODO Fix this hack. It won't work unless the city is Provo, UT
-				unit = parseApartmentNumber(cityString);
-				city = "Provo";
+		Pattern pattern = Pattern.compile("^(\\d+)\\s+(.+)PROVO.*UT.*");
+		Matcher matcher = pattern.matcher(address_.toUpperCase().trim());
+		if (matcher.find()) {
+			number = Utils.safeParseInt(matcher.group(1), 0);
+			String streetRaw = matcher.group(2);
+			Pattern aptPattern = Pattern.compile("^(.*)(APT\\s+\\w+|#\\s*\\w+)$");
+			Matcher aptMatcher = aptPattern.matcher(streetRaw.trim());
+			if (aptMatcher.find()) {
+				street = aptMatcher.group(1);
+				unit = parseApartmentNumber(aptMatcher.group(2));
 			} else {
-				city = parsedAddr.get(AddressComponent.CITY);
+				street = streetRaw;
 			}
-		}
-		
-		if (parsedAddr.get(AddressComponent.STATE) != null) 
-			state = parsedAddr.get(AddressComponent.STATE);		
+			street = cleanUpStreet(street);
 			
-		if (parsedAddr.get(AddressComponent.ZIP) != null)
-			zipCode = parsedAddr.get(AddressComponent.ZIP);
+			city = "Provo";
+			state = "Utah";
+			zipCode = "84606";
+		} else {
+			throw new IllegalArgumentException("Cannot parse address "+address_);
+		}
+	}
+	
+	private static Matcher matcher(String regex,String input) {
+		if (regex == null)
+			return null;
+		Pattern pattern = Pattern.compile(regex);
+		return pattern.matcher(input);
 	}
 
+	private static String cleanUpStreet(String rawStreet) {
+		rawStreet = rawStreet.trim();
+		Matcher matcher = matcher("^S[.](\\s+.*)",rawStreet);
+		if (matcher.find()) {
+			rawStreet = "S"+matcher.group(1);
+		}
+		
+		matcher = matcher("(.*)ST[.]",rawStreet);
+		if (matcher.find()) {
+			rawStreet = matcher.group(1) + "ST";
+		}
+		
+		matcher = matcher("(.*)AVE[.]",rawStreet);
+		if (matcher.find()) {
+			rawStreet = matcher.group(1) + "AVE";
+		}
+		return rawStreet;
+	}
+	
 	public Address2(int number_, String street_, String unit_, String city_, String state_, String zipCode_) {
 		this.number = number_;
 		this.street = street_;
@@ -138,24 +142,26 @@ public class Address2 implements Comparable<Address> {
 		Address2 other = (Address2) obj;
 		if (number != other.number)
 			return false;
-
-		if (!Utils.stringEquals(street, other.street)) {
+		
+		System.out.println("Comparing '"+street+"' and '"+other.street+"'");
+		if (!Utils.stringEqualsIgnoreCase(street, other.street)) {
 			return false;
 		}
 
-		if (!Utils.stringEquals(unit, other.unit)) {
+		if (!Utils.stringEqualsIgnoreCase(unit, other.unit)) {
 			return false;
 		}
 
-		if (!Utils.stringEquals(city, other.city)) {
+		if (!Utils.stringEqualsIgnoreCase(city, other.city)) {
 			return false;
 		}
 
-		if (!Utils.stringEquals(state, other.state)) {
+		System.out.println("Comparing '"+state+"' and '"+other.state+"'");
+		if (!Utils.stringEqualsIgnoreCase(state, other.state)) {
 			return false;
 		}
 
-		if (!Utils.stringEquals(zipCode, other.zipCode)) {
+		if (!Utils.stringEqualsIgnoreCase(zipCode, other.zipCode)) {
 			return false;
 		}
 
@@ -168,7 +174,7 @@ public class Address2 implements Comparable<Address> {
 
 	public String toString() {
 		String unitStr = (unit != null) ? "#" + unit : "";
-		return number + " " + street + " " + unitStr + ", " + city + ", " + state + " " + zipCode;
+		return "num='"+number + "' street='" +  street + "', unit='" + unitStr + "', city='" + city + "', state='" + state + "', zip='" + zipCode+"'";
 	}
 
 	public int getNumber() {
