@@ -60,7 +60,7 @@ public class Person
         phone = phone_;
         
         email = email_.trim();
-        address = new Address(address_);
+        address = new CanyonMeadowAddress(address_);
         moveInDate = moveInDate_;
         
         readInWard = readInWard_;
