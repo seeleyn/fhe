@@ -71,10 +71,8 @@ public class AddressTests {
 		address = new Address2("1968 Washington Ave. Provo, Utah 84606");
 		assertEquals(new Address2(1968,"Washington Ave",null,"Provo","Utah","84606"), address);
 		
-		/*
-		address = new Address2("2022 Park Street Provo, Utah 84601");
-		assertEquals(new Address2(2022,"Park Street",null,"Provo","Utah","84601"), address);
-		*/
+		address = new Address2("2022 Park Street Provo, Utah 84606");
+		assertEquals(new Address2(2022,"Park Street",null,"Provo","Utah","84606"), address);
 		
 		address = new Address2("2052 California Ave #7 Provo, Utah 84606");
 		assertEquals(new Address2(2052,"California Ave","7","Provo","Utah","84606"), address);
@@ -103,11 +101,24 @@ public class AddressTests {
 		address = new Address2("1015 Canyon Meadow Dr #6");
 		assertEquals(new Address2(1015,"Canyon Meadow Dr","6","Provo","Utah","84606"), address);
 		
-		//address = new Address2("1015 Canyon Meadow Dr#6");
-		//assertEquals(new Address2(1015,"Canyon Meadow Dr","6","Provo","Utah","84606"), address);
+		address = new Address2("1015 Canyon Meadow Dr#6");
+		assertEquals(new Address2(1015,"Canyon Meadow Dr","6","Provo","Utah","84606"), address);
+
+		address = new Address2("1028 Canyon Vista Rd#7");
+		assertEquals(new Address2(1028,"Canyon Vista Rd","7","Provo","Utah","84606"), address);
+		
+		address = new Address2("1028 S Canyon Vista Dr #8"); //TODO Are Canyon Vista Rd and S. Canyon Vista Dr the same road?
+		assertEquals(new Address2(1028,"S Canyon Vista Dr","8","Provo","Utah","84606"), address);
+		
+		address = new Address2("1034 S Canyon Meadow Dr #3"); // Compare with just Canyon Meadow or Canyon Meadow Drive
+		assertEquals(new Address2(1034,"S Canyon Meadow Dr","3","Provo","Utah","84606"), address);
+
+		address = new Address2("1034 S Canyon Meadow Dr #3");
+		assertEquals(new Address2(1034,"S Canyon Meadow Dr","3","Provo","Utah","84606"), address);
 
 
 
+		
 	}
 
 }

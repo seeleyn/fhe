@@ -1,8 +1,7 @@
 address = new Address2("");
 		assertEquals(new Address2(,"","","Provo","Utah","84606"), address);
 
-1028 Canyon Vista #7
-1028 Canyon Vista Rd #7
+
 1028 S Canyon Vista Dr #8
 1028 S. Canyon Vista Dr. #8
 1028 S Canyon Vista Rd #10
@@ -148,3 +147,4 @@ Provo, Utah 84606
 1015 Canyon Meadow Drive #6 //Dr vs. Drive
 1015 Canyon Meadow Dr#6 //no space before #
 1015 S Canyon Meadow #7
+1028 Canyon Vista #7 //Should be Canyon Vista Rd

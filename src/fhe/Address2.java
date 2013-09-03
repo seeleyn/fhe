@@ -140,28 +140,34 @@ public class Address2 implements Comparable<Address> {
 			return false;
 		}
 		Address2 other = (Address2) obj;
-		if (number != other.number)
+		if (number != other.number) {
+			System.out.println("Comparing '"+number+"' and '"+other.number+"'");	
 			return false;
+		}
 		
-		System.out.println("Comparing '"+street+"' and '"+other.street+"'");
 		if (!Utils.stringEqualsIgnoreCase(street, other.street)) {
+			System.out.println("Failed compare on '"+street+"' and '"+other.street+"'");
 			return false;
 		}
 
 		if (!Utils.stringEqualsIgnoreCase(unit, other.unit)) {
+			System.out.println("Comparing '"+unit+"' and '"+other.unit+"'");	
 			return false;
 		}
 
 		if (!Utils.stringEqualsIgnoreCase(city, other.city)) {
+			System.out.println("Comparing '"+city+"' and '"+other.city+"'");
 			return false;
 		}
 
-		System.out.println("Comparing '"+state+"' and '"+other.state+"'");
+		
 		if (!Utils.stringEqualsIgnoreCase(state, other.state)) {
+			System.out.println("Comparing '"+state+"' and '"+other.state+"'");	
 			return false;
 		}
 
 		if (!Utils.stringEqualsIgnoreCase(zipCode, other.zipCode)) {
+			System.out.println("Comparing '"+zipCode+"' and '"+other.zipCode+"'");	
 			return false;
 		}
 
