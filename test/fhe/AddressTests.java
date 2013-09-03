@@ -58,6 +58,12 @@ public class AddressTests {
 		
 		address = new DeerhavenAddress("1465 E 1370 S Provo, Utah 84606");
 		assertEquals(new DeerhavenAddress(1465,"E 1370 S",null,"Provo","Utah","84606"), address);
+		
+		address = new DeerhavenAddress("1465 E. 1370 S. Provo, Utah 84606");
+		assertEquals(new DeerhavenAddress(1465,"E 1370 S",null,"Provo","Utah","84606"), address);
+		
+		address = new DeerhavenAddress("1465 East 1370 South Provo, Utah 84606");
+		assertEquals(new DeerhavenAddress(1465,"E 1370 S",null,"Provo","Utah","84606"), address);				
 
 		address = new DeerhavenAddress("1747 Oregon Ave Provo, Utah 84606");
 		assertEquals(new DeerhavenAddress(1747,"Oregon",null,"Provo","Utah","84606"), address);
@@ -138,7 +144,17 @@ public class AddressTests {
 		assertEquals(new DeerhavenAddress(1676,"E 1080 S","6","Provo","Utah","84606"), address);
 		
 		address = new DeerhavenAddress("1676 E. 1080 S. #6");
-		assertEquals(new DeerhavenAddress(1676,"E 1080 S","6","Provo","Utah","84606"), address);	
+		assertEquals(new DeerhavenAddress(1676,"E 1080 S","6","Provo","Utah","84606"), address);
+		
+		address = new DeerhavenAddress("1145 S Meadow Fork Rd #1");
+		assertEquals(new DeerhavenAddress(1145,"Meadow Fork","1","Provo","Utah","84606"), address);
+		
+		address = new DeerhavenAddress("1145 South Meadow Fork Road#1");
+		assertEquals(new DeerhavenAddress(1145,"Meadow Fork","1","Provo","Utah","84606"), address);
+		
+		address = new DeerhavenAddress("1145 S. Meadow Fork Rd.#1");
+		assertEquals(new DeerhavenAddress(1145,"Meadow Fork","1","Provo","Utah","84606"), address);	
+
 	}
 
 }

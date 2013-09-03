@@ -129,8 +129,9 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		matcher = matcher("^(S[.]?|SOUTH)(\\s+.+)", streetName);
 		if (matcher.find()) {
 			String streetSuffix = matcher.group(2).trim();
-			if (streetSuffix.matches("\\d+\\s+[E.?|EAST]")) {
-				streetName = "S " + streetSuffix;				
+			Matcher innerMatcher = matcher("(\\d+)\\s+(E.?|EAST)$",streetSuffix);
+			if (innerMatcher.find()) {				
+				streetName = "S " + innerMatcher.group(1)+" E";			
 			} else {
 				streetName = streetSuffix;
 			}
@@ -230,7 +231,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 	}
 
 	public String toString() {
-		String unitStr = (unit != null) ? "#" + unit : "";
+		String unitStr = (unit != null) ?  unit : "0";
 		return "num='" + number + "' street='" + street + "', unit='" + unitStr + "'";
 	}
 
