@@ -93,7 +93,7 @@ public class Group
         System.out.println("Leaders");
         System.out.println("--------------------------------");
         for (Person leader : leaders)
-            System.out.println(leader.preferredName);
+            System.out.println(leader.fullName);
         System.out.println("--------------------------------");
         System.out.println("   total girls = "+numOfGirls);
         System.out.println("--------------------------------");
@@ -117,7 +117,7 @@ public class Group
         sb.append("Leaders\r\n");
         sb.append("******************************\r\n");        
         for (Person leader : leaders)
-            sb.append(leader.preferredName+", "+leader.phone+", "+leader.email+"\r\n");    
+            sb.append(leader.fullName+", "+leader.phone+", "+leader.email+"\r\n");    
         sb.append("\r\n\r\n");
         sb.append("******************************\r\n");
         sb.append("Members\r\n");
@@ -137,7 +137,7 @@ public class Group
 
             for (Person p : apt.residents)
             {
-                sb.append(p.preferredName+", "+p.phone+", "+p.email+"\r\n");
+                sb.append(p.fullName+", "+p.phone+", "+p.email+"\r\n");
                 allPeople.add(p);
             }
         }

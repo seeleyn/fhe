@@ -81,7 +81,7 @@ public class Apartment implements Comparable<Apartment>
         System.out.println("-----------------------------------------");
         for (Person per : residents)
         {
-            System.out.println(per.preferredName);
+            System.out.println(per.fullName);
         }        
     }
 

@@ -18,8 +18,6 @@ import java.util.Scanner;
 public class Person 
 {
     String fullName;
-    
-    String preferredName;
 
     String phone;    
     
@@ -56,7 +54,6 @@ public class Person
             String moveInDate_, String readInWard_, String gender_, String birthdate_) throws Exception
     {
         fullName = fullName_;
-        preferredName = name_;
         phone = phone_;
         
         email = email_.trim();
@@ -75,18 +72,18 @@ public class Person
     
     public String toString()
     {
-        return preferredName;
+        return fullName;
     }
     
     
     public String toFullString()
     {
-        return preferredName + "," + address + "," + phone + "," + email + "," + gender;
+        return fullName + "," + address + "," + phone + "," + email + "," + gender;
     }
     
     public void print()
     {
-        System.out.println("name: "+ preferredName);
+        System.out.println("name: "+ fullName);
         System.out.println("address: "+address);
         System.out.println("phone: "+phone);
         System.out.println("email: "+email);

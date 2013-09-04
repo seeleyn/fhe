@@ -80,7 +80,7 @@ public class Main
             if (persn.email != null && persn.email.length() > 0 && persn.email.contains("@"))
             {
                 if (persn.email.matches(".*@.*@.*"))
-                    System.out.println("Too many @'s in email for "+persn.preferredName+", which is '"+persn.email+"'");
+                    System.out.println("Too many @'s in email for "+persn.fullName+", which is '"+persn.email+"'");
                 else if (!leadersOnly)
                     sb.append(persn.email+",");
                 else
@@ -89,10 +89,10 @@ public class Main
                         sb.append(persn.email+",");
                 }
             }
-            else
-            {
-                System.out.println("Invalid email '"+persn.email+"' for "+persn.preferredName);                
-            }
+            //else
+            //{
+                //System.out.println("Invalid email '"+persn.email+"' for "+persn.preferredName);                
+            //}
         }
         sb.append("\r\n");
         return sb.toString();
@@ -213,7 +213,7 @@ public class Main
             List<Person> persons = apt.residents;
             for (Person per : persons)
             {
-                System.out.println(per.preferredName);
+                System.out.println(per.fullName);
             }
         }
     }
@@ -298,9 +298,9 @@ public class Main
         Person p;
         //if there is a preAssigned group, put it in the constructor.  Otherwise, ignore it
         if (tokens.length == Column.values().length)
-            p = new Person(fullName,null,phone,email,addressStr,null,null,"m",null,tokens[Column.values().length-1]);
+            p = new Person(fullName,null,phone,email,addressStr,null,null,gender,null,tokens[Column.values().length-1]);
         else
-            p = new Person(fullName,fullName,phone,email,addressStr,null,null,"m",null);
+            p = new Person(fullName,fullName,phone,email,addressStr,null,null,gender,null);
         return p;
     }
     

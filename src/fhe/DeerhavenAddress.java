@@ -230,8 +230,12 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 	}
 
 	public String toString() {
-		String unitStr = (unit != null) ?  unit : "0";
-		return "num='" + number + "' street='" + street + "', unit='" + unitStr + "'";
+		if (number == 0) {
+			return "Unparseable address";
+		} else {
+			String unitStr = (unit != null) ?  unit : "0";
+			return "num='" + number + "' street='" + street + "', unit='" + unitStr + "'";
+		}
 	}
 
 	public int getNumber() {
