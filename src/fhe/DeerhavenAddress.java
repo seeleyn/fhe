@@ -68,7 +68,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 			}
 			street = cleanUpStreet(street);
 		} else {
-			System.err.println("Cannot parse address '"+address_+"'. Using defaults");
+			System.err.println("Cannot parse address '" + address_ + "'. Using defaults");
 		}
 		city = "Provo";
 		state = "Utah";
@@ -84,71 +84,71 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 
 	private static String cleanUpStreet(String streetName) {
 		streetName = streetName.trim();
-	
+
 		Matcher matcher = matcher("(.*)\\s+ST[.]?", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
 		}
-		
+
 		matcher = matcher("(.*)\\s+STREET", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
-		}		
+		}
 
 		matcher = matcher("(.*)\\s+AVE[.]?", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
 		}
-		
+
 		matcher = matcher("(.*)\\s+AVENUE", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
-		}		
-		
+		}
+
 		matcher = matcher("(.*)\\s+DR[.]?", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
 		}
-		
+
 		matcher = matcher("(.*)\\s+DRIVE", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
-		}		
-		
+		}
+
 		matcher = matcher("(.*)\\s+RD[.]?", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
 		}
-		
+
 		matcher = matcher("(.*)\\s+ROAD", streetName);
 		if (matcher.find()) {
 			streetName = matcher.group(1);
 		}
-		
+
 		matcher = matcher("^(S[.]?|SOUTH)(\\s+.+)", streetName);
 		if (matcher.find()) {
 			String streetSuffix = matcher.group(2).trim();
-			Matcher innerMatcher = matcher("(\\d+)\\s+(E.?|EAST)$",streetSuffix);
-			if (innerMatcher.find()) {				
-				streetName = "S " + innerMatcher.group(1)+" E";			
+			Matcher innerMatcher = matcher("(\\d+)\\s+(E.?|EAST)$", streetSuffix);
+			if (innerMatcher.find()) {
+				streetName = "S " + innerMatcher.group(1) + " E";
 			} else {
 				streetName = streetSuffix;
 			}
 
 		}
-		
+
 		matcher = matcher("^(E[.]?|EAST)(\\s+.+)", streetName);
 		if (matcher.find()) {
 			String streetSuffix = matcher.group(2).trim();
-			Matcher innerMatcher = matcher("(\\d+)\\s+(S.?|SOUTH)$",streetSuffix);
-			if (innerMatcher.find()) {				
-				streetName = "E " + innerMatcher.group(1)+" S";			
+			Matcher innerMatcher = matcher("(\\d+)\\s+(S.?|SOUTH)$", streetSuffix);
+			if (innerMatcher.find()) {
+				streetName = "E " + innerMatcher.group(1) + " S";
 			} else {
 				streetName = streetSuffix;
 			}
 
-		}		
-				
+		}
+
 		return streetName;
 	}
 
@@ -192,17 +192,20 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		}
 		Address other = (Address) obj;
 		if (number != other.getNumber()) {
-			System.out.println("Comparing '" + number + "' and '" + other.getNumber() + "'");
+			// System.out.println("Comparing '" + number + "' and '" +
+			// other.getNumber() + "'");
 			return false;
 		}
 
 		if (!Utils.stringEqualsIgnoreCase(street, other.getStreet())) {
-			System.out.println("Failed compare on '" + street + "' and '" + other.getStreet() + "'");
+			// System.out.println("Failed compare on '" + street + "' and '" +
+			// other.getStreet() + "'");
 			return false;
 		}
 
 		if (!Utils.stringEqualsIgnoreCase(unit, other.getUnit())) {
-			System.out.println("Comparing '" + unit + "' and '" + other.getUnit() + "'");
+			// System.out.println("Comparing '" + unit + "' and '" +
+			// other.getUnit() + "'");
 			return false;
 		}
 
@@ -233,8 +236,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		if (number == 0) {
 			return "Unparseable address";
 		} else {
-			String unitStr = (unit != null) ?  "Apt. "+unit : "";
-			//return "num='" + number + "' street='" + street + "', unit='" + unitStr + "'";
+			String unitStr = (unit != null) ? "Apt. " + unit : "";
 			return number + " " + street + " " + unitStr;
 		}
 	}

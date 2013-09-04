@@ -20,10 +20,6 @@ public enum Column
     FULL_NAME("Full Name"),    
     PHONE("Phone 1"),	    
     SEX("Sex"),	    
-    //PREFERRED_NAME("Preferred Name"),	
-    //MOVE_IN_DATE("Move-in Date"),
-    //READ_IN_WARD("Read into ward"),
-    //BIRTH("Birth"),
     GROUP("Group");//this is always the last column.  It is optional.
     
     private String label;

@@ -283,24 +283,20 @@ public class Main
     {
         String fullName = tokens[Column.FULL_NAME.ordinal()];
         fullName = fullName.replace(';',',');
-        //String name = tokens[Column.PREFERRED_NAME.ordinal()];
-        //name = fullName.replace(';',',');
         String phone = tokens[Column.PHONE.ordinal()];
         
         String email = tokens[Column.EMAIL.ordinal()];
         String addressStr = tokens[Column.ADDRESS.ordinal()];
-        //String moveInDate = tokens[Column.MOVE_IN_DATE.ordinal()];
-        
-        //String readInWard = tokens[Column.READ_IN_WARD.ordinal()];
+
         String gender = tokens[Column.SEX.ordinal()];
-        //String birth = tokens[Column.BIRTH.ordinal()];
+
         
         Person p;
         //if there is a preAssigned group, put it in the constructor.  Otherwise, ignore it
         if (tokens.length == Column.values().length)
-            p = new Person(fullName,null,phone,email,addressStr,null,null,gender,null,tokens[Column.values().length-1]);
+            p = new Person(fullName,phone,email,addressStr,gender,tokens[Column.values().length-1]);
         else
-            p = new Person(fullName,fullName,phone,email,addressStr,null,null,gender,null);
+            p = new Person(fullName,phone,email,addressStr,gender);
         return p;
     }
     
