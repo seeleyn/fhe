@@ -64,9 +64,9 @@ public class Person
         moveInDate = moveInDate_;
         
         readInWard = readInWard_;
-        if (gender_.trim().equalsIgnoreCase("female"))
+        if (gender_.trim().equalsIgnoreCase("female") || gender_.trim().equalsIgnoreCase("f"))
             gender = Gender.FEMALE;
-        else if (gender_.trim().equalsIgnoreCase("male")) 
+        else if (gender_.trim().equalsIgnoreCase("male") || gender_.trim().equalsIgnoreCase("m")) 
             gender = Gender.MALE;
         else throw new IllegalArgumentException("invalid gender "+gender_);        
         birthdate = birthdate_;
@@ -100,22 +100,22 @@ public class Person
         {
             case FULL_NAME:
                 return fullName;
-            case PREFERRED_NAME:
-                return preferredName;
+            //case PREFERRED_NAME:
+            //    return preferredName;
             case PHONE:
                 return phone;
             case EMAIL:
                 return email;
             case ADDRESS:
                 return address.toString();
-            case MOVE_IN_DATE:
-                return moveInDate;
-            case READ_IN_WARD:
-                return readInWard;
+            //case MOVE_IN_DATE:
+            //    return moveInDate;
+            //case READ_IN_WARD:
+            //    return readInWard;
             case SEX:
                 return gender.toString();
-            case BIRTH:
-                return birthdate;
+            //case BIRTH:
+            //    return birthdate;
             default:
                 throw new IllegalStateException(col+" not handled for this method");
         }

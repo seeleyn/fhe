@@ -67,13 +67,12 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 				street = streetRaw;
 			}
 			street = cleanUpStreet(street);
-
-			city = "Provo";
-			state = "Utah";
-			zipCode = "84606";
 		} else {
-			throw new IllegalArgumentException("Cannot parse address " + address_);
+			System.err.println("Cannot parse address '"+address_+"'. Using defaults");
 		}
+		city = "Provo";
+		state = "Utah";
+		zipCode = "84606";
 	}
 
 	private static Matcher matcher(String regex, String input) {
