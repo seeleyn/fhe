@@ -46,8 +46,8 @@ public class Apartment implements Comparable<Apartment>
 
     private void doubleCheckAddress(final Person per) throws IllegalArgumentException {
         if (!per.address.equals(address))
-            throw new IllegalArgumentException("Residents must live in same address.  '" +
-                    per.address+"' doesn't equal '"+address+"'");
+            throw new IllegalArgumentException("Residents must live in same address. "+per.fullName+" lives in '" +
+                    per.address+"', which doesn't equal '"+address+"'");
     }
 
     private void extractPreAssignedGroupNum(final Person p) throws IllegalStateException 

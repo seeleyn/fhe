@@ -9,8 +9,6 @@
 
 package fhe;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +24,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 
 	private String unit = null;
 
-	private String city = "Provo";
+	private City city = null;
 
 	/** Creates a new instance of Address */
 	public DeerhavenAddress(String address_) {
@@ -43,7 +41,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 			Pattern pn = Pattern.compile("^(.*)(" + cityName + ").*(" + stateName + "|" + stateAbbrev + ").*$");
 			Matcher matcher = pn.matcher(addressString);
 			if (matcher.find()) {
-				this.city = cityCandidate.getName();
+				this.city = cityCandidate;
 				cityStreetApt = matcher.group(1);
 				break;
 			}
@@ -52,7 +50,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		if (cityStreetApt == null) {
 			// If no city is specified, assume Provo
 			cityStreetApt = addressString;
-			city = City.PROVO.getName();
+			city = City.PROVO;
 		}
 
 		Pattern pattern = Pattern.compile("^(\\d+)\\s+(.+)");
@@ -71,6 +69,10 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 			street = cleanUpStreet(street);
 		} else {
 			System.err.println("Cannot parse address '" + address_ + "'. Using defaults");
+			number = 0;
+			street = null;
+			unit = null;
+			city = null;
 		}
 
 	}
@@ -152,7 +154,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		return streetName;
 	}
 
-	public DeerhavenAddress(int number_, String street_, String unit_, String city_) {
+	public DeerhavenAddress(int number_, String street_, String unit_, City city_) {
 		this.number = number_;
 		this.street = street_;
 		this.unit = unit_;
@@ -188,22 +190,24 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		if (!(obj instanceof DeerhavenAddress)) {
 			return false;
 		}
-		Address other = (Address) obj;
+		DeerhavenAddress other = (DeerhavenAddress) obj;
 		if (number != other.getNumber()) {
-			// System.out.println("Comparing '" + number + "' and '" +
-			// other.getNumber() + "'");
+			System.out.println("Comparing '" + number + "' and '" + other.getNumber() + "'");
 			return false;
 		}
 
 		if (!Utils.stringEqualsIgnoreCase(street, other.getStreet())) {
-			// System.out.println("Failed compare on '" + street + "' and '" +
-			// other.getStreet() + "'");
+			System.out.println("Failed compare on '" + street + "' and '" + other.getStreet() + "'");
 			return false;
 		}
 
 		if (!Utils.stringEqualsIgnoreCase(unit, other.getUnit())) {
-			// System.out.println("Comparing '" + unit + "' and '" +
-			// other.getUnit() + "'");
+			System.out.println("Comparing '" + unit + "' and '" + other.getUnit() + "'");
+			return false;
+		}
+
+		if (this.city != other.getCity()) {
+			System.out.println("Comparing '" + city + "' and '" + other.getCity() + "'");
 			return false;
 		}
 
@@ -231,12 +235,19 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 	}
 
 	public String toString() {
+
 		if (number == 0) {
 			return "Unparseable address";
 		} else {
 			String unitStr = (unit != null) ? "Apt. " + unit : "";
 			return number + " " + street + " " + unitStr;
 		}
+
+		// return toDebugString();
+	}
+
+	public String toDebugString() {
+		return "number=" + number + ", street='" + street + "', apt='" + unit + "', city=" + city;
 	}
 
 	public int getNumber() {
@@ -251,23 +262,8 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		return unit;
 	}
 
-	public String getCity() {
+	public City getCity() {
 		return city;
-	}
-
-	static City parseCity(String address) {
-		if (address != null) {
-			Map<String, String> result = new HashMap<String, String>();
-			address = address.toUpperCase();
-			for (City city : City.values()) {
-				Pattern pattern = Pattern.compile("");
-
-				if (address.lastIndexOf(city.getName().toUpperCase()) != -1) {
-					return city;
-				}
-			}
-		}
-		return null;
 	}
 
 }
