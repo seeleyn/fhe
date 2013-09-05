@@ -1,7 +1,7 @@
 package fhe;
 
 public enum City {
-	PROVO("Provo", State.UTAH), OREM("Orem", State.UTAH), SPRINGVILLE("Springville", State.UTAH);
+	PROVO("Provo", State.UTAH), OREM("Orem", State.UTAH), SPRINGVILLE("Springville", State.UTAH), MAPLETON("Mapleton",State.UTAH);
 
 	String name;
 

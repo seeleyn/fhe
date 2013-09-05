@@ -236,14 +236,13 @@ public class DeerhavenAddress implements Comparable<DeerhavenAddress> {
 
 	public String toString() {
 
-		if (number == 0) {
+		if (number == 0 && street == null && unit == null && city == null) {
 			return "Unparseable address";
 		} else {
-			String unitStr = (unit != null) ? "Apt. " + unit : "";
-			return number + " " + street + " " + unitStr;
+			String unitStr = (unit != null) ? " Apt. " + unit : "";
+			return number + " " + street + unitStr + ", " + city;
 		}
 
-		// return toDebugString();
 	}
 
 	public String toUniqueString() {
