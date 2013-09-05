@@ -156,7 +156,11 @@ public class AddressTests {
 
 		address = new DeerhavenAddress("1145 S. Meadow Fork Rd.#1");
 		assertEquals(new DeerhavenAddress(1145, "Meadow Fork", "1", "Provo", "Utah", "84606"), address);
-
 	}
 
+	@Test
+	public void testParseCity() {
+		City city = DeerhavenAddress.parseCity("12 Main Street Provo, UT");
+		assertEquals(City.PROVO,city);
+	}
 }

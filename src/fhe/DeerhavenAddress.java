@@ -9,6 +9,8 @@
 
 package fhe;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,31 +32,39 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 
 	private String zipCode = "84606";
 
-	private static String addCityStateZipIfNotPresent(String address_) {
-		if (address_ == null) {
-			return null;
-		}
-
-		String addr = address_.toUpperCase().trim();
-		// More hackery.... :(
-		Pattern pattern = Pattern.compile(".*PROVO.*UT.*");
-		Matcher matcher = pattern.matcher(addr);
-		if (!matcher.matches()) {
-			return address_ + " Provo, Utah 84606";
-		} else {
-			return address_;
-		}
-	}
 
 	/** Creates a new instance of Address */
 	public DeerhavenAddress(String address_) {
 		if (address_ == null) {
 			throw new IllegalArgumentException("address parameter cannot be null");
 		}
-		address_ = addCityStateZipIfNotPresent(address_);
-
-		Pattern pattern = Pattern.compile("^(\\d+)\\s+(.+)PROVO.*UT.*");
-		Matcher matcher = pattern.matcher(address_.toUpperCase().trim());
+		String addressString = address_.toUpperCase();
+		
+		String cityStreetApt = null;
+		for (City cityCandidate : City.values()) {
+			String cityName = cityCandidate.getName().toUpperCase();
+			String stateName = cityCandidate.getState().getName().toUpperCase();
+			String stateAbbrev = cityCandidate.getState().getAbbreviation().toUpperCase();
+			Pattern pn = Pattern.compile("^(.*)("+cityName+").*("+stateName+"|"+stateAbbrev+").*$");
+			Matcher matcher = pn.matcher(addressString);
+			if (matcher.find()) {
+				this.city = cityCandidate.getName();
+				this.state = cityCandidate.getState().getName();
+				cityStreetApt = matcher.group(1);
+				break;
+			}
+		}
+		
+		if (cityStreetApt == null) {			
+			//If no city is specified, assume Provo
+			cityStreetApt = addressString;
+			city = City.PROVO.getName();
+			state = State.UTAH.getName();
+			zipCode = "84606";
+		}
+		
+		Pattern pattern = Pattern.compile("^(\\d+)\\s+(.+)");
+		Matcher matcher = pattern.matcher(cityStreetApt.toUpperCase().trim());
 		if (matcher.find()) {
 			number = Utils.safeParseInt(matcher.group(1), 0);
 			String streetRaw = matcher.group(2);
@@ -70,9 +80,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		} else {
 			System.err.println("Cannot parse address '" + address_ + "'. Using defaults");
 		}
-		city = "Provo";
-		state = "Utah";
-		zipCode = "84606";
+
 	}
 
 	private static Matcher matcher(String regex, String input) {
@@ -263,6 +271,21 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 
 	public String getZipCode() {
 		return zipCode;
+	}
+
+	static City parseCity(String address) {
+		if (address != null) {
+			Map<String,String> result = new HashMap<String,String>();
+			address = address.toUpperCase();
+			for (City city : City.values()) {
+				Pattern pattern = Pattern.compile("");
+				
+				if (address.lastIndexOf(city.getName().toUpperCase()) != -1) {
+					return city;
+				}
+			}			
+		}
+		return null;
 	}
 
 }
