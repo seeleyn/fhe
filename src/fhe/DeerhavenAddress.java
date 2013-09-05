@@ -30,8 +30,6 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 
 	private String state = "UT";
 
-	private String zipCode = "84606";
-
 
 	/** Creates a new instance of Address */
 	public DeerhavenAddress(String address_) {
@@ -60,7 +58,6 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 			cityStreetApt = addressString;
 			city = City.PROVO.getName();
 			state = State.UTAH.getName();
-			zipCode = "84606";
 		}
 		
 		Pattern pattern = Pattern.compile("^(\\d+)\\s+(.+)");
@@ -166,7 +163,6 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		this.unit = unit_;
 		this.city = city_;
 		this.state = state_;
-		this.zipCode = zipCode_;
 	}
 
 	/**
@@ -267,10 +263,6 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 
 	public String getState() {
 		return state;
-	}
-
-	public String getZipCode() {
-		return zipCode;
 	}
 
 	static City parseCity(String address) {
