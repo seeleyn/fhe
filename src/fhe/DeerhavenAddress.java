@@ -28,38 +28,33 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 
 	private String city = "Provo";
 
-	private String state = "UT";
-
-
 	/** Creates a new instance of Address */
 	public DeerhavenAddress(String address_) {
 		if (address_ == null) {
 			throw new IllegalArgumentException("address parameter cannot be null");
 		}
 		String addressString = address_.toUpperCase();
-		
+
 		String cityStreetApt = null;
 		for (City cityCandidate : City.values()) {
 			String cityName = cityCandidate.getName().toUpperCase();
 			String stateName = cityCandidate.getState().getName().toUpperCase();
 			String stateAbbrev = cityCandidate.getState().getAbbreviation().toUpperCase();
-			Pattern pn = Pattern.compile("^(.*)("+cityName+").*("+stateName+"|"+stateAbbrev+").*$");
+			Pattern pn = Pattern.compile("^(.*)(" + cityName + ").*(" + stateName + "|" + stateAbbrev + ").*$");
 			Matcher matcher = pn.matcher(addressString);
 			if (matcher.find()) {
 				this.city = cityCandidate.getName();
-				this.state = cityCandidate.getState().getName();
 				cityStreetApt = matcher.group(1);
 				break;
 			}
 		}
-		
-		if (cityStreetApt == null) {			
-			//If no city is specified, assume Provo
+
+		if (cityStreetApt == null) {
+			// If no city is specified, assume Provo
 			cityStreetApt = addressString;
 			city = City.PROVO.getName();
-			state = State.UTAH.getName();
 		}
-		
+
 		Pattern pattern = Pattern.compile("^(\\d+)\\s+(.+)");
 		Matcher matcher = pattern.matcher(cityStreetApt.toUpperCase().trim());
 		if (matcher.find()) {
@@ -157,12 +152,11 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		return streetName;
 	}
 
-	public DeerhavenAddress(int number_, String street_, String unit_, String city_, String state_, String zipCode_) {
+	public DeerhavenAddress(int number_, String street_, String unit_, String city_) {
 		this.number = number_;
 		this.street = street_;
 		this.unit = unit_;
 		this.city = city_;
-		this.state = state_;
 	}
 
 	/**
@@ -261,21 +255,17 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		return city;
 	}
 
-	public String getState() {
-		return state;
-	}
-
 	static City parseCity(String address) {
 		if (address != null) {
-			Map<String,String> result = new HashMap<String,String>();
+			Map<String, String> result = new HashMap<String, String>();
 			address = address.toUpperCase();
 			for (City city : City.values()) {
 				Pattern pattern = Pattern.compile("");
-				
+
 				if (address.lastIndexOf(city.getName().toUpperCase()) != -1) {
 					return city;
 				}
-			}			
+			}
 		}
 		return null;
 	}
