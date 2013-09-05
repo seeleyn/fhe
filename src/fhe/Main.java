@@ -157,7 +157,7 @@ public class Main {
 
 		HashMap<String, ArrayList<Person>> map = new HashMap<String, ArrayList<Person>>();
 		for (Person person : persons) {
-			DeerhavenAddress addr = person.address;
+			Address addr = person.address;
 			ArrayList<Person> apt = map.get(addr.toString());
 			if (apt == null)
 				apt = new ArrayList<Person>();

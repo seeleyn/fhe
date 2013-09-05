@@ -22,7 +22,7 @@ public class Person {
 
 	String email;
 
-	DeerhavenAddress address;
+	Address address;
 
 	Gender gender;
 
@@ -46,7 +46,7 @@ public class Person {
 		fullName = fullName_;
 		phone = phone_;
 		email = email_.trim();
-		address = new DeerhavenAddress(address_);
+		address = new Address(address_);
 
 		if (gender_.trim().equalsIgnoreCase("female") || gender_.trim().equalsIgnoreCase("f"))
 			gender = Gender.FEMALE;

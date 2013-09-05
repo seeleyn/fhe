@@ -22,7 +22,7 @@ public class Apartment implements Comparable<Apartment>
     
     Gender gender;
     
-    DeerhavenAddress address;
+    Address address;
     
     private int preAssignedGroupNum = -1;
     
