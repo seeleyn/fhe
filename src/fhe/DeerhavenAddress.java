@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * 
  * @author n8
  */
-public class DeerhavenAddress implements Comparable<Address>, Address {
+public class DeerhavenAddress implements Comparable<DeerhavenAddress> {
 
 	private int number = 0;
 
@@ -230,8 +230,8 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		return true;
 	}
 
-	public int compareTo(Address obj) {
-		return toString().compareTo(obj.toString());
+	public int compareTo(DeerhavenAddress obj) {
+		return toUniqueString().compareTo(obj.toUniqueString());
 	}
 
 	public String toString() {
@@ -246,7 +246,7 @@ public class DeerhavenAddress implements Comparable<Address>, Address {
 		// return toDebugString();
 	}
 
-	public String toDebugString() {
+	public String toUniqueString() {
 		return "number=" + number + ", street='" + street + "', apt='" + unit + "', city=" + city;
 	}
 

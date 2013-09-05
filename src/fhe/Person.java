@@ -22,7 +22,7 @@ public class Person {
 
 	String email;
 
-	Address address;
+	DeerhavenAddress address;
 
 	Gender gender;
 
