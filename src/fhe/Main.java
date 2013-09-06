@@ -18,8 +18,6 @@ import java.util.*;
  */
 public class Main {
 
-	public static int numOfGroups = 4;
-
 	/** Creates a new instance of Main */
 	public Main() {
 	}
