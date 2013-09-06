@@ -198,12 +198,8 @@ public class Main {
 			if (line.length() > 0) {
 				line = preprocess(line);
 				String[] tokens = line.split(",");
-				if (tokens.length < Column.values().length - 1) // the last
-																// column is the
-																// group num,
-																// which is
-																// optional
-				{
+				// the last column is the group num, which is optional
+				if (tokens.length < Column.values().length - 1) {
 					throw new Exception("not enough fields (" + tokens.length + ")in '" + line + "'");
 				}
 				persons.add(parsePerson(tokens));

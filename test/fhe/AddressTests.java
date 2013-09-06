@@ -76,10 +76,10 @@ public class AddressTests {
 
 		address = new Address("2173 State St Apt 1 Provo, Utah 84606 ");
 		assertEquals(new Address(2173, "State", "1", City.PROVO), address); // TODO
-																					// what
-																					// about
-																					// South
-																					// state?
+																			// what
+																			// about
+																			// South
+																			// state?
 
 		address = new Address("2416 Tennessee Ave Provo, Utah 84606");
 		assertEquals(new Address(2416, "Tennessee", null, City.PROVO), address);
@@ -94,28 +94,28 @@ public class AddressTests {
 		assertEquals(new Address(1028, "Canyon Vista", "7", City.PROVO), address);
 
 		address = new Address("1028 S Canyon Vista Dr #8"); // TODO Are
-																		// Canyon
-																		// Vista
-																		// Rd
-																		// and
-																		// S.
-																		// Canyon
-																		// Vista
-																		// Dr
-																		// the
-																		// same
-																		// road?
+															// Canyon
+															// Vista
+															// Rd
+															// and
+															// S.
+															// Canyon
+															// Vista
+															// Dr
+															// the
+															// same
+															// road?
 		assertEquals(new Address(1028, "Canyon Vista", "8", City.PROVO), address);
 
 		address = new Address("1034 S Canyon Meadow Dr #3"); // Compare
-																		// with
-																		// just
-																		// Canyon
-																		// Meadow
-																		// or
-																		// Canyon
-																		// Meadow
-																		// Drive
+																// with
+																// just
+																// Canyon
+																// Meadow
+																// or
+																// Canyon
+																// Meadow
+																// Drive
 		assertEquals(new Address(1034, "Canyon Meadow", "3", City.PROVO), address);
 
 		address = new Address("1034 S Canyon Meadow Dr #3");
@@ -156,5 +156,11 @@ public class AddressTests {
 
 		address = new Address("1145 S. Meadow Fork Rd.#1");
 		assertEquals(new Address(1145, "Meadow Fork", "1", City.PROVO), address);
+
+		address = new Address("1346 South 1440 North Provo, Utah 84606");
+		assertEquals(new Address(1346, "S 1440 N", null, City.PROVO), address);
+
+		address = new Address("1300 East 1440 North Provo, Utah 84606");
+		assertEquals(new Address(1300, "E 1440 N", null, City.PROVO), address);
 	}
 }

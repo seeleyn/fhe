@@ -134,7 +134,12 @@ public class Address implements Comparable<Address> {
 			if (innerMatcher.find()) {
 				streetName = "S " + innerMatcher.group(1) + " E";
 			} else {
-				streetName = streetSuffix;
+				innerMatcher = matcher("(\\d+)\\s+(N.?|NORTH)$", streetSuffix);
+				if (innerMatcher.find()) {
+					streetName = "S " + innerMatcher.group(1) + " N";
+				} else {
+					streetName = streetSuffix;
+				}
 			}
 
 		}
@@ -146,7 +151,12 @@ public class Address implements Comparable<Address> {
 			if (innerMatcher.find()) {
 				streetName = "E " + innerMatcher.group(1) + " S";
 			} else {
-				streetName = streetSuffix;
+				innerMatcher = matcher("(\\d+)\\s+(N.?|NORTH)$", streetSuffix);
+				if (innerMatcher.find()) {
+					streetName = "E " + innerMatcher.group(1) + " N";
+				} else {
+					streetName = streetSuffix;
+				}
 			}
 
 		}
