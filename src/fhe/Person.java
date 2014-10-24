@@ -39,6 +39,7 @@ public class Person {
 		preAssignedGroupNum = scanner.nextInt();
 		if (groupCode.contains("*"))
 			isLeader = true;
+		scanner.close();
 	}
 
 	/** Creates a new instance of Person */
@@ -104,5 +105,13 @@ public class Person {
 
 	public int getPreAssignedGroupNum() {
 		return preAssignedGroupNum;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address_) {
+		this.address = address_;
 	}
 }

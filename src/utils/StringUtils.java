@@ -1,6 +1,6 @@
-package fhe;
+package utils;
 
-public class Utils {
+public class StringUtils {
 
 	public static boolean stringEquals(String str1, String str2) {
 		if (str1 == null) {

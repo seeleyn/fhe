@@ -12,6 +12,8 @@ package fhe;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import utils.StringUtils;
+
 /**
  * 
  * @author n8
@@ -56,7 +58,7 @@ public class Address implements Comparable<Address> {
 		Pattern pattern = Pattern.compile("^(\\d+)\\s+(.+)");
 		Matcher matcher = pattern.matcher(cityStreetApt.toUpperCase().trim());
 		if (matcher.find()) {
-			number = Utils.safeParseInt(matcher.group(1), 0);
+			number = StringUtils.safeParseInt(matcher.group(1), 0);
 			String streetRaw = matcher.group(2);
 			Pattern aptPattern = Pattern.compile("^(.*)(APT\\s+\\w+|#\\s*\\w+)$");
 			Matcher aptMatcher = aptPattern.matcher(streetRaw.trim());
@@ -206,12 +208,12 @@ public class Address implements Comparable<Address> {
 			return false;
 		}
 
-		if (!Utils.stringEqualsIgnoreCase(street, other.getStreet())) {
+		if (!StringUtils.stringEqualsIgnoreCase(street, other.getStreet())) {
 			System.out.println("Failed compare on '" + street + "' and '" + other.getStreet() + "'");
 			return false;
 		}
 
-		if (!Utils.stringEqualsIgnoreCase(unit, other.getUnit())) {
+		if (!StringUtils.stringEqualsIgnoreCase(unit, other.getUnit())) {
 			System.out.println("Comparing '" + unit + "' and '" + other.getUnit() + "'");
 			return false;
 		}
