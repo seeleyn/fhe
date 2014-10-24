@@ -36,7 +36,7 @@ public class Main {
 		}
 		String inputFile = args[0];
 		int numOfGroups = Integer.parseInt(args[1]);
-		List<Person> persons = ParsingUtils.parseFile(inputFile);
+		List<Person> persons = ParsingUtils.parseCsvFile(inputFile);
 		System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
 		Collections.sort(apts);

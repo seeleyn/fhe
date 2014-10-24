@@ -14,7 +14,7 @@ import fhe.Column;
 import fhe.Person;
 
 public class ParsingUtils {
-	public static List<Person> parseFile(String path) throws Exception {
+	public static List<Person> parseCsvFile(String path) throws Exception {
 		ArrayList<Person> persons = new ArrayList<Person>();
 		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
 		try {
@@ -106,4 +106,5 @@ public class ParsingUtils {
 		}
 		return apts;
 	}
+
 }
