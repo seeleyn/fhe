@@ -36,7 +36,12 @@ public class Main {
 		}
 		String inputFile = args[0];
 		int numOfGroups = Integer.parseInt(args[1]);
-		List<Person> persons = ParsingUtils.parseCsvFile(inputFile);
+		
+		//Note: The Group column is optional and should be last
+		List<Column> columnsInCsv = Arrays.asList(Column.FULL_NAME, Column.PREFERRED_NAME, Column.PHONE, Column.EMAIL,
+			Column.ADDRESS, Column.MOVE_IN_DATE, Column.READ_INTO_WARD, Column.SEX, Column.BIRTH, Column.GROUP);
+		
+		List<Person> persons = ParsingUtils.parseCsvFile(columnsInCsv, inputFile);
 		System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
 		Collections.sort(apts);

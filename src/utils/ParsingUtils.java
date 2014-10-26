@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fhe.Address;
 import fhe.Apartment;
@@ -14,7 +16,11 @@ import fhe.Column;
 import fhe.Person;
 
 public class ParsingUtils {
-	public static List<Person> parseCsvFile(String path) throws Exception {
+	public static List<Person> parseCsvFile(List<Column> columnsInCsv, String path) throws Exception {
+		if (columnsInCsv == null || path == null) {
+			throw new IllegalArgumentException("null input param: columnsInCsv-" + (columnsInCsv == null) + ", path- "
+					+ (path == null));
+		}
 		ArrayList<Person> persons = new ArrayList<Person>();
 		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
 		try {
@@ -25,11 +31,7 @@ public class ParsingUtils {
 				if (line.length() > 0) {
 					line = preprocess(line);
 					String[] tokens = line.split(",");
-					// the last column is the group num, which is optional
-					if (tokens.length < Column.values().length - 1) {
-						throw new Exception("not enough fields (" + tokens.length + ")in '" + line + "'");
-					}
-					persons.add(parsePerson(tokens));
+					persons.add(parsePerson(columnsInCsv, tokens));
 				}
 				line = in.readLine();
 			}
@@ -65,15 +67,33 @@ public class ParsingUtils {
 		return sb.toString();
 	}
 
-	public static Person parsePerson(String[] tokens) throws Exception {
-		String fullName = tokens[Column.FULL_NAME.ordinal()];
+	public static Person parsePerson(List<Column> columns, String[] tokens) throws Exception {
+		if (columns == null || tokens == null)
+			throw new IllegalArgumentException("Null input parameter: columns-" + (columns == null) + ", tokens-"
+					+ (tokens == null));
+		Column[] requiredColumns = { Column.FULL_NAME, Column.PHONE, Column.EMAIL, Column.ADDRESS, Column.SEX };
+		for (Column requiredColumn : requiredColumns) {
+			if (!columns.contains(requiredColumn))
+				throw new IllegalArgumentException("columns input parameter must contain " + requiredColumn);
+		}
+		if (tokens.length < columns.size()) {
+			throw new IllegalArgumentException("At least " + columns.size() + " columns are required. "
+					+ Arrays.asList(tokens) + " only has " + tokens.length);
+		}
+
+		Map<Column, Integer> columnToIndex = new HashMap<Column, Integer>();
+		for (int i = 0; i < columns.size(); i++) {
+			columnToIndex.put(columns.get(i), i);
+		}
+
+		String fullName = tokens[columnToIndex.get(Column.FULL_NAME)];
 		fullName = fullName.replace(';', ',');
-		String phone = tokens[Column.PHONE.ordinal()];
+		String phone = tokens[columnToIndex.get(Column.PHONE)];
 
-		String email = tokens[Column.EMAIL.ordinal()];
-		String addressStr = tokens[Column.ADDRESS.ordinal()];
+		String email = tokens[columnToIndex.get(Column.EMAIL)];
+		String addressStr = tokens[columnToIndex.get(Column.ADDRESS)];
 
-		String gender = tokens[Column.SEX.ordinal()];
+		String gender = tokens[columnToIndex.get(Column.SEX)];
 
 		Person p;
 		// if there is a preAssigned group, put it in the constructor.
