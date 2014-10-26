@@ -28,7 +28,7 @@
   <target name="run" depends="jar">
     <java classname="fhe.Main">
       <arg value="sampleInput/sample.csv"/>
-      <arg value="2"/>
+      <arg value="3"/>
 
       <classpath>
         <pathelement location="lib/jgeocoder-0.5-jar-with-dependencies.jar"/>
