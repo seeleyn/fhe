@@ -71,11 +71,6 @@ public class ParsingUtils {
 		if (columns == null || tokens == null)
 			throw new IllegalArgumentException("Null input parameter: columns-" + (columns == null) + ", tokens-"
 					+ (tokens == null));
-		Column[] requiredColumns = { Column.FULL_NAME, Column.PHONE, Column.EMAIL, Column.ADDRESS, Column.SEX };
-		for (Column requiredColumn : requiredColumns) {
-			if (!columns.contains(requiredColumn))
-				throw new IllegalArgumentException("columns input parameter must contain " + requiredColumn);
-		}
 		if (tokens.length < columns.size()) {
 			throw new IllegalArgumentException("At least " + columns.size() + " columns are required. "
 					+ Arrays.asList(tokens) + " only has " + tokens.length);
@@ -86,19 +81,41 @@ public class ParsingUtils {
 			columnToIndex.put(columns.get(i), i);
 		}
 
-		String fullName = tokens[columnToIndex.get(Column.FULL_NAME)];
-		fullName = fullName.replace(';', ',');
-		String phone = tokens[columnToIndex.get(Column.PHONE)];
+		String fullName = null;
+		if (columnToIndex.containsKey(Column.FULL_NAME)) {
+			fullName = tokens[columnToIndex.get(Column.FULL_NAME)];
+			fullName = fullName.replace(';', ',');
+		}
 
-		String email = tokens[columnToIndex.get(Column.EMAIL)];
-		String addressStr = tokens[columnToIndex.get(Column.ADDRESS)];
+		String phone = null;
+		if (columnToIndex.containsKey(Column.PHONE)) {
+			phone = tokens[columnToIndex.get(Column.PHONE)];
+		}
 
-		String gender = tokens[columnToIndex.get(Column.SEX)];
+		String email = null;
+		if (columnToIndex.containsKey(Column.EMAIL)) {
+			email = tokens[columnToIndex.get(Column.EMAIL)];
+		}
+
+		String addressStr = null;
+		if (columnToIndex.containsKey(Column.ADDRESS)) {
+			addressStr = tokens[columnToIndex.get(Column.ADDRESS)];
+		}
+
+		String gender = null;
+		if (columnToIndex.containsKey(Column.SEX)) {
+			gender = tokens[columnToIndex.get(Column.SEX)];
+		}
+
+		String groupCode = null;
+		if (columnToIndex.containsKey(Column.GROUP)) {
+			groupCode = tokens[columnToIndex.get(Column.GROUP)];
+		}
 
 		Person p;
 		// if there is a preAssigned group, put it in the constructor.
 		// Otherwise, ignore it
-		if (tokens.length == Column.values().length)
+		if (groupCode != null)
 			p = new Person(fullName, phone, email, addressStr, gender, tokens[Column.values().length - 1]);
 		else
 			p = new Person(fullName, phone, email, addressStr, gender);

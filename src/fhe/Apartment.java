@@ -34,7 +34,7 @@ public class Apartment implements Comparable<Apartment> {
 			throw new IllegalArgumentException("apartment must have at least 1 resident");
 		address = people.get(0).address;
 		gender = people.get(0).gender; // assuming all residents have same
-										// gender
+										// gender? Not a good idea
 		for (Person per : people) {
 			residents.add(per);
 			extractPreAssignedGroupNum(per);
@@ -95,4 +95,9 @@ public class Apartment implements Comparable<Apartment> {
 	public int getPreAssignedGroupNum() {
 		return preAssignedGroupNum;
 	}
+	
+	public Address getAddress() {
+		return address;
+	}
+	
 }

@@ -46,15 +46,18 @@ public class Person {
 	public Person(String fullName_, String phone_, String email_, String address_, String gender_) throws Exception {
 		fullName = fullName_;
 		phone = phone_;
-		email = email_.trim();
+		email = email != null ? email_.trim() : null;
 		address = new Address(address_);
 
-		if (gender_.trim().equalsIgnoreCase("female") || gender_.trim().equalsIgnoreCase("f"))
+		if (gender_ == null) {
+			gender = Gender.MALE; // assume male if no gender specified
+		} else if (gender_.trim().equalsIgnoreCase("female") || gender_.trim().equalsIgnoreCase("f"))
 			gender = Gender.FEMALE;
 		else if (gender_.trim().equalsIgnoreCase("male") || gender_.trim().equalsIgnoreCase("m"))
 			gender = Gender.MALE;
 		else
 			throw new IllegalArgumentException("invalid gender " + gender_);
+
 	}
 
 	public String toString() {

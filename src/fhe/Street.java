@@ -13,6 +13,7 @@ package fhe;
  *
  * @author n8
  */
+@Deprecated
 public enum Street 
 {
     MEADOW_F0RK("Meadow Fork"),
