@@ -27,7 +27,7 @@
 
   <target name="run" depends="jar">
     <java classname="fhe.Main">
-      <arg value="sampleInput/sample.csv"/>
+      <arg value="sampleInput/hogwartsFHE.csv"/>
       <arg value="3"/>
 
       <classpath>
