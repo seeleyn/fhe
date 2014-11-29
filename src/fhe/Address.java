@@ -129,7 +129,7 @@ public class Address implements Comparable<Address> {
 			streetName = matcher.group(1);
 		}
 
-		matcher = matcher("^(S[.]?|SOUTH)(\\s+.+)", streetName);
+		matcher = matcher("^(S[.]?|SO[.]?|SOUTH)(\\s+.+)", streetName);
 		if (matcher.find()) {
 			String streetSuffix = matcher.group(2).trim();
 			Matcher innerMatcher = matcher("(\\d+)\\s+(E.?|EAST)$", streetSuffix);
