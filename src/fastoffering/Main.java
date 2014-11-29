@@ -38,16 +38,25 @@ public class Main {
 		routes.add(createRoute());
 		routes.add(createRoute2());
 		routes.add(createRoute3());
+		routes.add(createRoute4());
+		routes.add(createRoute5());
+		routes.add(createRoute6());
+		routes.add(createRoute7());
+		routes.add(createRoute8());
 
 		List<Apartment> unassignedApartments = new ArrayList<Apartment>();
 		for (Apartment apt : apts) {
+			boolean assignedToRoute = false;
 			for (Route route : routes) {
 				if (route.isOnRoute(apt.getAddress())) {
 					route.addApartment(apt);
+					assignedToRoute = true;
 					break;
 				}
 			}
-			unassignedApartments.add(apt);
+			if (!assignedToRoute) {
+				unassignedApartments.add(apt);
+			}
 		}
 
 		for (Route route : routes) {
@@ -59,10 +68,17 @@ public class Main {
 			}
 		}
 
+		System.out.println("**************************");
+		System.out.println("Unassigned");
+		System.out.println("**************************");
+		for (Apartment apt : unassignedApartments) {
+			apt.printAsLine();
+		}
+
 	}
 
 	public static Route createRoute() {
-		Route route = new Route("E SW");
+		Route route = new Route("W SW");
 		route.addStreetFilter(new StreetFilter("S 900 E"));
 		route.addStreetFilter(new StreetFilter("S 960 E"));
 		route.addStreetFilter(new StreetFilter("E 1180 S"));
@@ -71,10 +87,11 @@ public class Main {
 	}
 
 	public static Route createRoute2() {
-		Route route = new Route("W SW");
+		Route route = new Route("E SW");
 		route.addStreetFilter(new StreetFilter("S 1000 E"));
 		route.addStreetFilter(new StreetFilter("E 1160 S"));
 		route.addStreetFilter(new StreetFilter("S 1060 E"));
+		route.addStreetFilter(new StreetFilter("E 1270 S"));
 		route.addStreetFilter(new StreetFilter("STATE"));
 		return route;
 	}
@@ -84,7 +101,60 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("S 1370 E"));
 		route.addStreetFilter(new StreetFilter("S 1400 E"));
 		route.addStreetFilter(new StreetFilter("S 1440 E"));
-		route.addStreetFilter(new StreetFilter("E 1370 S", 1370, 1440));
+		route.addStreetFilter(new StreetFilter("E 1370 S", 1370, 1470));
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1370, 1470));
+		return route;
+	}
+
+	public static Route createRoute4() {
+		Route route = new Route("OLD DH");
+		// route.addStreetFilter(new StreetFilter("STATE"));
+		route.addStreetFilter(new StreetFilter("E 1440 S"));
+		route.addStreetFilter(new StreetFilter("S 1420 E"));
+		route.addStreetFilter(new StreetFilter("S 1470 E", 1320, 2000));
+		route.addStreetFilter(new StreetFilter("E 1370 S", 1440, 1500));
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1440, 1500));
+		return route;
+	}
+
+	public static Route createRoute5() {
+		Route route = new Route("PIO 2");
+		route.addStreetFilter(new StreetFilter("S 1500 E"));
+		route.addStreetFilter(new StreetFilter("S 1550 E"));
+		route.addStreetFilter(new StreetFilter("E 1350 S"));
+		route.addStreetFilter(new StreetFilter("S 1590 E"));
+		return route;
+	}
+
+	public static Route createRoute6() {
+		Route route = new Route("CUL DE SACS");
+		route.addStreetFilter(new StreetFilter("S 1650 E"));
+		route.addStreetFilter(new StreetFilter("S 1710 E"));
+		route.addStreetFilter(new StreetFilter("E 1350 S"));
+		route.addStreetFilter(new StreetFilter("S 1590 E"));
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1550, 2000));
+		return route;
+	}
+
+	public static Route createRoute7() {
+		Route route = new Route("SLATE CANYON");
+		route.addStreetFilter(new StreetFilter("NEVADA"));
+		route.addStreetFilter(new StreetFilter("SLATE CANYON"));
+		return route;
+	}
+
+	public static Route createRoute8() {
+		Route route = new Route("PIO 1");
+		route.addStreetFilter(new StreetFilter("S 1470 E", 1000, 1320));
+		route.addStreetFilter(new StreetFilter("S 1460 E"));
+		route.addStreetFilter(new StreetFilter("S 1480 E"));
+		route.addStreetFilter(new StreetFilter("E 1190 S"));
+		route.addStreetFilter(new StreetFilter("E 1230 S"));
+		route.addStreetFilter(new StreetFilter("E 1280 S"));
+		route.addStreetFilter(new StreetFilter("E 1300 S"));
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1470, 1550));
+		route.addStreetFilter(new StreetFilter("S 1510 E"));
+		route.addStreetFilter(new StreetFilter("S 1540 E"));
 		return route;
 	}
 
