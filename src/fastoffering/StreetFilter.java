@@ -9,9 +9,9 @@ public class StreetFilter {
 	final int minStreetNumber;
 
 	final int maxStreetNumber;
-	
+
 	public StreetFilter(String street) {
-		this(street,0,Integer.MAX_VALUE);
+		this(street, 0, Integer.MAX_VALUE);
 	}
 
 	public StreetFilter(String street, int minStreetNumber, int maxStreetNumber) {
@@ -20,11 +20,14 @@ public class StreetFilter {
 		this.maxStreetNumber = maxStreetNumber;
 	}
 
-	public boolean matches(Address address) {
-		if (address != null) {
-			if (address.getStreet().equals(street) && address.getNumber() > minStreetNumber
-					&& address.getNumber() < maxStreetNumber) {
-				return true;
+	public boolean matches(Address address) {		
+		if (address != null && address.getStreet() != null) {
+			if (address.getStreet().equals(street)) {
+				if (address.getNumber() > minStreetNumber) {
+					if (address.getNumber() < maxStreetNumber) {
+						return true;
+					}
+				}
 			}
 		}
 		return false;

@@ -22,11 +22,11 @@ public class Main {
 			System.exit(1);
 		}
 		String inputFile = args[0];
-		List<Column> columnsInCsv = Arrays.asList(Column.FULL_NAME, Column.ADDRESS);
+		List<Column> columnsInCsv = Arrays.asList(Column.ADDRESS, Column.FULL_NAME);
 		List<Person> persons = ParsingUtils.parseCsvFile(columnsInCsv, inputFile);
 		System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
-		Apartment.printApts(apts);
+		// Apartment.printApts(apts);
 		/*
 		 * Set<String> streets = new TreeSet<String>(); for (Apartment apt :
 		 * apts) { streets.add(apt.getAddress().getStreet()); }
@@ -37,6 +37,7 @@ public class Main {
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(createRoute());
 		routes.add(createRoute2());
+		routes.add(createRoute3());
 
 		List<Apartment> unassignedApartments = new ArrayList<Apartment>();
 		for (Apartment apt : apts) {
@@ -54,7 +55,7 @@ public class Main {
 			System.out.println(route.name);
 			System.out.println("**************************");
 			for (Apartment aptInRoute : route.apartments) {
-				aptInRoute.print();
+				aptInRoute.printAsLine();
 			}
 		}
 
@@ -74,7 +75,16 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("S 1000 E"));
 		route.addStreetFilter(new StreetFilter("E 1160 S"));
 		route.addStreetFilter(new StreetFilter("S 1060 E"));
-		route.addStreetFilter(new StreetFilter("E 1270 S"));
+		route.addStreetFilter(new StreetFilter("STATE"));
+		return route;
+	}
+
+	public static Route createRoute3() {
+		Route route = new Route("W DH");
+		route.addStreetFilter(new StreetFilter("S 1370 E"));
+		route.addStreetFilter(new StreetFilter("S 1400 E"));
+		route.addStreetFilter(new StreetFilter("S 1440 E"));
+		route.addStreetFilter(new StreetFilter("E 1370 S", 1370, 1440));
 		return route;
 	}
 

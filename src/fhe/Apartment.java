@@ -75,6 +75,16 @@ public class Apartment implements Comparable<Apartment> {
 		}
 	}
 
+	public void printAsLine() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(address);
+		sb.append(" - ");
+		for (Person per : residents) {
+			sb.append(per.fullName + "; ");
+		}
+		System.out.println(sb.toString());
+	}
+
 	public static void printApts(Collection<Apartment> apts) {
 		for (Apartment apt : apts) {
 			System.out.println("\n\n-----------------------------------------");
@@ -95,9 +105,9 @@ public class Apartment implements Comparable<Apartment> {
 	public int getPreAssignedGroupNum() {
 		return preAssignedGroupNum;
 	}
-	
+
 	public Address getAddress() {
 		return address;
 	}
-	
+
 }
