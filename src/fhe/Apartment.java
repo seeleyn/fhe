@@ -110,4 +110,7 @@ public class Apartment implements Comparable<Apartment> {
 		return address;
 	}
 
+	public List<Person> getResidents() {
+		return residents;
+	}
 }

@@ -1,10 +1,14 @@
 package fastoffering;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+import utils.MarkdownRenderer;
 import utils.ParsingUtils;
 import fhe.Apartment;
 import fhe.Column;
@@ -25,7 +29,7 @@ public class Main {
 		String inputFile = args[0];
 		List<Column> columnsInCsv = Arrays.asList(Column.ADDRESS, Column.FULL_NAME);
 		List<Person> persons = ParsingUtils.parseCsvFile(columnsInCsv, inputFile);
-		System.out.println("read in " + persons.size() + " persons");
+		// System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
 
 		List<Route> routes = new ArrayList<Route>();
@@ -53,25 +57,17 @@ public class Main {
 			}
 		}
 
+		Map<String, List<Apartment>> apartmentMappings = new LinkedHashMap<String, List<Apartment>>();
 		for (Route route : routes) {
-			System.out.println("**************************");
-			System.out.println(route.name);
-			System.out.println("**************************");
-			List<Apartment> aptsInRoute = route.apartments;
-
-			Collections.sort(aptsInRoute);
-			for (Apartment aptInRoute : route.apartments) {
-				aptInRoute.printAsLine();
-			}
+			apartmentMappings.put(route.name, route.apartments);
 		}
+		apartmentMappings.put("Unassigned", unassignedApartments);
 
-		System.out.println("**************************");
-		System.out.println("Unassigned");
-		System.out.println("**************************");
-		for (Apartment apt : unassignedApartments) {
-			apt.printAsLine();
-		}
-
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		String markdown = MarkdownRenderer.toMarkdown("Fast Offering Routes - " + dateFormat.format(new Date()),
+			apartmentMappings);
+		System.out.println("\n\n");
+		System.out.println(markdown);
 	}
 
 	public static Route createRoute() {
@@ -105,7 +101,6 @@ public class Main {
 
 	public static Route createRoute4() {
 		Route route = new Route("Old Deerhaven");
-		// route.addStreetFilter(new StreetFilter("STATE"));
 		route.addStreetFilter(new StreetFilter("E 1440 S"));
 		route.addStreetFilter(new StreetFilter("S 1420 E"));
 		route.addStreetFilter(new StreetFilter("S 1470 E", 1320, 2000));
@@ -115,32 +110,6 @@ public class Main {
 	}
 
 	public static Route createRoute5() {
-		Route route = new Route("Pioneer 2");
-		route.addStreetFilter(new StreetFilter("S 1500 E"));
-		route.addStreetFilter(new StreetFilter("S 1550 E"));
-		route.addStreetFilter(new StreetFilter("E 1350 S"));
-		route.addStreetFilter(new StreetFilter("S 1590 E"));
-		return route;
-	}
-
-	public static Route createRoute6() {
-		Route route = new Route("Cul de sacs");
-		route.addStreetFilter(new StreetFilter("S 1650 E"));
-		route.addStreetFilter(new StreetFilter("S 1710 E"));
-		route.addStreetFilter(new StreetFilter("E 1350 S"));
-		route.addStreetFilter(new StreetFilter("S 1590 E"));
-		route.addStreetFilter(new StreetFilter("E 1320 S", 1550, 2000));
-		return route;
-	}
-
-	public static Route createRoute7() {
-		Route route = new Route("Slate Canyon & Nevada");
-		route.addStreetFilter(new StreetFilter("NEVADA"));
-		route.addStreetFilter(new StreetFilter("SLATE CANYON"));
-		return route;
-	}
-
-	public static Route createRoute8() {
 		Route route = new Route("Pioneer");
 		route.addStreetFilter(new StreetFilter("S 1470 E", 1000, 1320));
 		route.addStreetFilter(new StreetFilter("S 1460 E"));
@@ -152,6 +121,32 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("E 1320 S", 1470, 1550));
 		route.addStreetFilter(new StreetFilter("S 1510 E"));
 		route.addStreetFilter(new StreetFilter("S 1540 E"));
+		return route;
+	}
+
+	public static Route createRoute6() {
+		Route route = new Route("Pioneer 2");
+		route.addStreetFilter(new StreetFilter("S 1500 E"));
+		route.addStreetFilter(new StreetFilter("S 1550 E"));
+		route.addStreetFilter(new StreetFilter("E 1350 S"));
+		route.addStreetFilter(new StreetFilter("S 1590 E"));
+		return route;
+	}
+
+	public static Route createRoute7() {
+		Route route = new Route("Cul de sacs");
+		route.addStreetFilter(new StreetFilter("S 1650 E"));
+		route.addStreetFilter(new StreetFilter("S 1710 E"));
+		route.addStreetFilter(new StreetFilter("E 1350 S"));
+		route.addStreetFilter(new StreetFilter("S 1590 E"));
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1550, 2000));
+		return route;
+	}
+
+	public static Route createRoute8() {
+		Route route = new Route("Slate Canyon & Nevada");
+		route.addStreetFilter(new StreetFilter("NEVADA"));
+		route.addStreetFilter(new StreetFilter("SLATE CANYON"));
 		return route;
 	}
 
