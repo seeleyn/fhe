@@ -225,11 +225,12 @@ public class Address implements Comparable<Address> {
 	}
 
 	private String toComparisonString() {
-		String cityString = city != null ? city.toString() : " ";
-		String streetString = street != null ? street.toString() : " ";
-		String unitString = unit != null ? unit.toString() : " ";
+		String cityString = city != null ? city.toString().toUpperCase() : " ";
+		String streetString = street != null ? street.toString().toUpperCase() : " ";
+		String unitString = unit != null ? unit.toString().toUpperCase() : " ";
 
-		return "city=" + cityString + ", street=" + streetString + ", number=" + String.format("%09d", number) + ", unit=" + unitString;
+		return "city=" + cityString + ", street=" + streetString + ", number=" + String.format("%09d", number)
+				+ ", unit=" + unitString;
 	}
 
 	public int getNumber() {
