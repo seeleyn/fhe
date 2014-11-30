@@ -2,7 +2,12 @@ package fhe;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+
 import utils.StringUtils;
+
 import org.junit.Test;
 
 public class UtilsTests {
@@ -29,7 +34,18 @@ public class UtilsTests {
 		assertFalse(StringUtils.stringEqualsIgnoreCase(null, "1"));
 		assertFalse(StringUtils.stringEqualsIgnoreCase("1", null));
 		assertFalse(StringUtils.stringEqualsIgnoreCase("1", "2"));
-
 	}
 
+	@Test
+	public void joinTests() {
+		assertEquals("",StringUtils.join(null, null));
+		
+		ArrayList<String> values = new ArrayList<String>();
+		values.add("alpha");
+		values.add(null);
+		values.add("bravo");
+		values.add("charlie");
+		
+		assertEquals("alpha, null, bravo, charlie",StringUtils.join(values, ", "));
+	}
 }

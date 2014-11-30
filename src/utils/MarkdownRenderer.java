@@ -20,7 +20,7 @@ public class MarkdownRenderer {
 			out.append("| Address | Members |" + System.lineSeparator());
 			out.append("| ------- | ------- |" + System.lineSeparator());
 			for (Apartment apt : apartments) {
-				out.append("| " + apt.getAddress() + "|" + apt.getResidents().toString() + "|" + System.lineSeparator());
+				out.append("| " + apt.getAddress() + "|" + StringUtils.join(apt.getResidents(),"; ") + "|" + System.lineSeparator());
 			}
 
 		}
