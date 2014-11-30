@@ -2,6 +2,7 @@ package fastoffering;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import utils.ParsingUtils;
@@ -26,14 +27,7 @@ public class Main {
 		List<Person> persons = ParsingUtils.parseCsvFile(columnsInCsv, inputFile);
 		System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
-		// Apartment.printApts(apts);
-		/*
-		 * Set<String> streets = new TreeSet<String>(); for (Apartment apt :
-		 * apts) { streets.add(apt.getAddress().getStreet()); }
-		 * System.out.println("\n**********************\nStreets are"); for
-		 * (String street : streets) { System.out.println("Street is "+street);
-		 * }
-		 */
+
 		List<Route> routes = new ArrayList<Route>();
 		routes.add(createRoute());
 		routes.add(createRoute2());
@@ -63,6 +57,9 @@ public class Main {
 			System.out.println("**************************");
 			System.out.println(route.name);
 			System.out.println("**************************");
+			List<Apartment> aptsInRoute = route.apartments;
+
+			Collections.sort(aptsInRoute);
 			for (Apartment aptInRoute : route.apartments) {
 				aptInRoute.printAsLine();
 			}
@@ -78,7 +75,7 @@ public class Main {
 	}
 
 	public static Route createRoute() {
-		Route route = new Route("W SW");
+		Route route = new Route("W South Willow");
 		route.addStreetFilter(new StreetFilter("S 900 E"));
 		route.addStreetFilter(new StreetFilter("S 960 E"));
 		route.addStreetFilter(new StreetFilter("E 1180 S"));
@@ -87,7 +84,7 @@ public class Main {
 	}
 
 	public static Route createRoute2() {
-		Route route = new Route("E SW");
+		Route route = new Route("E South Willow");
 		route.addStreetFilter(new StreetFilter("S 1000 E"));
 		route.addStreetFilter(new StreetFilter("E 1160 S"));
 		route.addStreetFilter(new StreetFilter("S 1060 E"));
@@ -97,7 +94,7 @@ public class Main {
 	}
 
 	public static Route createRoute3() {
-		Route route = new Route("W DH");
+		Route route = new Route("W Deerhaven");
 		route.addStreetFilter(new StreetFilter("S 1370 E"));
 		route.addStreetFilter(new StreetFilter("S 1400 E"));
 		route.addStreetFilter(new StreetFilter("S 1440 E"));
@@ -107,7 +104,7 @@ public class Main {
 	}
 
 	public static Route createRoute4() {
-		Route route = new Route("OLD DH");
+		Route route = new Route("Old Deerhaven");
 		// route.addStreetFilter(new StreetFilter("STATE"));
 		route.addStreetFilter(new StreetFilter("E 1440 S"));
 		route.addStreetFilter(new StreetFilter("S 1420 E"));
@@ -118,7 +115,7 @@ public class Main {
 	}
 
 	public static Route createRoute5() {
-		Route route = new Route("PIO 2");
+		Route route = new Route("Pioneer 2");
 		route.addStreetFilter(new StreetFilter("S 1500 E"));
 		route.addStreetFilter(new StreetFilter("S 1550 E"));
 		route.addStreetFilter(new StreetFilter("E 1350 S"));
@@ -127,7 +124,7 @@ public class Main {
 	}
 
 	public static Route createRoute6() {
-		Route route = new Route("CUL DE SACS");
+		Route route = new Route("Cul de sacs");
 		route.addStreetFilter(new StreetFilter("S 1650 E"));
 		route.addStreetFilter(new StreetFilter("S 1710 E"));
 		route.addStreetFilter(new StreetFilter("E 1350 S"));
@@ -137,14 +134,14 @@ public class Main {
 	}
 
 	public static Route createRoute7() {
-		Route route = new Route("SLATE CANYON");
+		Route route = new Route("Slate Canyon & Nevada");
 		route.addStreetFilter(new StreetFilter("NEVADA"));
 		route.addStreetFilter(new StreetFilter("SLATE CANYON"));
 		return route;
 	}
 
 	public static Route createRoute8() {
-		Route route = new Route("PIO 1");
+		Route route = new Route("Pioneer");
 		route.addStreetFilter(new StreetFilter("S 1470 E", 1000, 1320));
 		route.addStreetFilter(new StreetFilter("S 1460 E"));
 		route.addStreetFilter(new StreetFilter("S 1480 E"));

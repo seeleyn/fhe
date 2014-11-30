@@ -99,7 +99,7 @@ public class Apartment implements Comparable<Apartment> {
 
 	public int compareTo(Apartment o) {
 		Apartment other = (Apartment) o;
-		return address.toString().compareTo(other.address.toString());
+		return address.compareTo(other.getAddress());
 	}
 
 	public int getPreAssignedGroupNum() {

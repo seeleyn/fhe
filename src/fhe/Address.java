@@ -28,7 +28,13 @@ public class Address implements Comparable<Address> {
 
 	private City city = null;
 
-	/** Creates a new instance of Address */
+	public Address(int number_, String street_, String unit_, City city_) {
+		this.number = number_;
+		this.street = street_;
+		this.unit = unit_;
+		this.city = city_;
+	}
+
 	public Address(String address_) {
 		if (address_ == null) {
 			throw new IllegalArgumentException("address parameter cannot be null");
@@ -166,13 +172,6 @@ public class Address implements Comparable<Address> {
 		return streetName;
 	}
 
-	public Address(int number_, String street_, String unit_, City city_) {
-		this.number = number_;
-		this.street = street_;
-		this.unit = unit_;
-		this.city = city_;
-	}
-
 	/**
 	 * 
 	 * @param aptNumString
@@ -199,55 +198,23 @@ public class Address implements Comparable<Address> {
 	}
 
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Address)) {
+		if (obj instanceof Address)
+			if (obj == this)
+				return true;
+			else
+				return this.compareTo((Address) obj) == 0;
+		else
 			return false;
-		}
-		Address other = (Address) obj;
-		if (number != other.getNumber()) {
-			System.out.println("Comparing '" + number + "' and '" + other.getNumber() + "'");
-			return false;
-		}
-
-		if (!StringUtils.stringEqualsIgnoreCase(street, other.getStreet())) {
-			System.out.println("Failed compare on '" + street + "' and '" + other.getStreet() + "'");
-			return false;
-		}
-
-		if (!StringUtils.stringEqualsIgnoreCase(unit, other.getUnit())) {
-			System.out.println("Comparing '" + unit + "' and '" + other.getUnit() + "'");
-			return false;
-		}
-
-		if (this.city != other.getCity()) {
-			System.out.println("Comparing '" + city + "' and '" + other.getCity() + "'");
-			return false;
-		}
-
-		/*
-		 * if (!Utils.stringEqualsIgnoreCase(city, other.city)) {
-		 * System.out.println("Comparing '"+city+"' and '"+other.city+"'");
-		 * return false; }
-		 * 
-		 * 
-		 * if (!Utils.stringEqualsIgnoreCase(state, other.state)) {
-		 * System.out.println("Comparing '"+state+"' and '"+other.state+"'");
-		 * return false; }
-		 * 
-		 * if (!Utils.stringEqualsIgnoreCase(zipCode, other.zipCode)) {
-		 * System.out
-		 * .println("Comparing '"+zipCode+"' and '"+other.zipCode+"'"); return
-		 * false; }
-		 */
-
-		return true;
 	}
 
 	public int compareTo(Address obj) {
-		return toUniqueString().compareTo(obj.toUniqueString());
+		if (obj == null) {
+			return -1;
+		}
+		return toComparisonString().compareTo(obj.toComparisonString());
 	}
 
 	public String toString() {
-
 		if (number == 0 && street == null && unit == null && city == null) {
 			return "Unparseable address";
 		} else {
@@ -257,8 +224,12 @@ public class Address implements Comparable<Address> {
 
 	}
 
-	public String toUniqueString() {
-		return "number=" + number + ", street='" + street + "', apt='" + unit + "', city=" + city;
+	private String toComparisonString() {
+		String cityString = city != null ? city.toString() : " ";
+		String streetString = street != null ? street.toString() : " ";
+		String unitString = unit != null ? unit.toString() : " ";
+
+		return "city=" + cityString + ", street=" + streetString + ", number=" + String.format("%09d", number) + ", unit=" + unitString;
 	}
 
 	public int getNumber() {

@@ -9,7 +9,7 @@ import fhe.Apartment;
 public class Route {
 
 	String name;
-	
+
 	List<StreetFilter> streetFilters = new ArrayList<StreetFilter>();
 
 	List<Apartment> apartments = new ArrayList<Apartment>();
@@ -30,15 +30,15 @@ public class Route {
 		}
 		return false;
 	}
-	
+
 	public void addApartment(Apartment apartment) {
 		if (apartment == null) {
-			throw new IllegalArgumentException("Cannot add null apartment to route "+name);
+			throw new IllegalArgumentException("Cannot add null apartment to route " + name);
 		}
 		if (!isOnRoute(apartment.getAddress())) {
-			throw new IllegalArgumentException("Apartment "+apartment.getAddress()+" is not on route "+name);
+			throw new IllegalArgumentException("Apartment " + apartment.getAddress() + " is not on route " + name);
 		}
-		
+
 		apartments.add(apartment);
 	}
 
