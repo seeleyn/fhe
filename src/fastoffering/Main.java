@@ -95,7 +95,7 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("S 1400 E"));
 		route.addStreetFilter(new StreetFilter("S 1440 E"));
 		route.addStreetFilter(new StreetFilter("E 1370 S", 1370, 1470));
-		route.addStreetFilter(new StreetFilter("E 1320 S", 1370, 1470));
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1370, 1440));		
 		return route;
 	}
 
@@ -105,7 +105,6 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("S 1420 E"));
 		route.addStreetFilter(new StreetFilter("S 1470 E", 1320, 2000));
 		route.addStreetFilter(new StreetFilter("E 1370 S", 1440, 1500));
-		route.addStreetFilter(new StreetFilter("E 1320 S", 1440, 1500));
 		return route;
 	}
 
@@ -118,7 +117,6 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("E 1230 S"));
 		route.addStreetFilter(new StreetFilter("E 1280 S"));
 		route.addStreetFilter(new StreetFilter("E 1300 S"));
-		route.addStreetFilter(new StreetFilter("E 1320 S", 1470, 1550));
 		route.addStreetFilter(new StreetFilter("S 1510 E"));
 		route.addStreetFilter(new StreetFilter("S 1540 E"));
 		return route;
@@ -130,6 +128,7 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("S 1550 E"));
 		route.addStreetFilter(new StreetFilter("E 1350 S"));
 		route.addStreetFilter(new StreetFilter("S 1590 E"));
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1440, 1550));		
 		return route;
 	}
 
