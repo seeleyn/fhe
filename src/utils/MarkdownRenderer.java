@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import fastoffering.ApartmentComparator;
 import fhe.Apartment;
 
 public class MarkdownRenderer {
@@ -32,7 +33,7 @@ public class MarkdownRenderer {
 		StringBuilder out = new StringBuilder();
 		out.append("# " + routeName + System.lineSeparator());
 		out.append(System.lineSeparator());
-		Collections.sort(apartments);
+		Collections.sort(apartments, new ApartmentComparator());
 		out.append("| Address | Members |" + System.lineSeparator());
 		out.append("| ------- | ------- |" + System.lineSeparator());
 		for (Apartment apt : apartments) {
