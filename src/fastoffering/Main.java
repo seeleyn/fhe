@@ -1,5 +1,9 @@
 package fastoffering;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,11 +67,36 @@ public class Main {
 		}
 		apartmentMappings.put("Unassigned", unassignedApartments);
 
+		outputReports(apartmentMappings);
+	}
+
+	private static void outputReports(Map<String, List<Apartment>> apartmentMappings) throws FileNotFoundException {
+		File outputDir = new File("fastOfferingOutput");
+		if (!outputDir.exists()) {
+			if (!outputDir.mkdir()) {
+				throw new IllegalStateException("Cannot create output directory");
+			}
+		}
+		System.out.println("Printing output to " + outputDir.getAbsolutePath());
+
+		// Print a report that contains information for all routes
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		String markdown = MarkdownRenderer.toMarkdown("Fast Offering Routes - " + dateFormat.format(new Date()),
-			apartmentMappings);
-		System.out.println("\n\n");
-		System.out.println(markdown);
+		String allRoutesReportMarkdown = MarkdownRenderer.createReportForAllRoutes("Fast Offering Routes - "
+				+ dateFormat.format(new Date()), apartmentMappings);
+		printStringToFile(outputDir + "/allRoutes.txt", allRoutesReportMarkdown);
+
+		// Print a separate report for each route (to be included in the fast
+		// offering route bags)
+		for (String routeName : apartmentMappings.keySet()) {
+			String routeMarkdown = MarkdownRenderer.createRouteReport(routeName, apartmentMappings.get(routeName));
+			printStringToFile(outputDir + "/" + routeName.replaceAll("\\s", "") + ".txt", routeMarkdown);
+		}
+	}
+
+	private static void printStringToFile(String fileName, String stringToOutput) throws FileNotFoundException {
+		PrintWriter out = new PrintWriter(new FileOutputStream(fileName));
+		out.print(stringToOutput);
+		out.close();
 	}
 
 	public static Route createRoute() {
@@ -95,7 +124,7 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("S 1400 E"));
 		route.addStreetFilter(new StreetFilter("S 1440 E"));
 		route.addStreetFilter(new StreetFilter("E 1370 S", 1370, 1470));
-		route.addStreetFilter(new StreetFilter("E 1320 S", 1370, 1440));		
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1370, 1440));
 		return route;
 	}
 
@@ -128,7 +157,7 @@ public class Main {
 		route.addStreetFilter(new StreetFilter("S 1550 E"));
 		route.addStreetFilter(new StreetFilter("E 1350 S"));
 		route.addStreetFilter(new StreetFilter("S 1590 E"));
-		route.addStreetFilter(new StreetFilter("E 1320 S", 1440, 1550));		
+		route.addStreetFilter(new StreetFilter("E 1320 S", 1440, 1550));
 		return route;
 	}
 

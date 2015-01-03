@@ -8,7 +8,7 @@ import fhe.Apartment;
 
 public class MarkdownRenderer {
 
-	public static String toMarkdown(String reportName, Map<String, List<Apartment>> apartmentGroupings) {
+	public static String createReportForAllRoutes(String reportName, Map<String, List<Apartment>> apartmentGroupings) {
 		StringBuilder out = new StringBuilder();
 		out.append("# " + reportName + System.lineSeparator());
 		out.append(System.lineSeparator());
@@ -20,11 +20,25 @@ public class MarkdownRenderer {
 			out.append("| Address | Members |" + System.lineSeparator());
 			out.append("| ------- | ------- |" + System.lineSeparator());
 			for (Apartment apt : apartments) {
-				out.append("| " + apt.getAddress() + "|" + StringUtils.join(apt.getResidents(),"; ") + "|" + System.lineSeparator());
+				out.append("| " + apt.getAddress() + "|" + StringUtils.join(apt.getResidents(), "; ") + "|"
+						+ System.lineSeparator());
 			}
 
 		}
 		return out.toString();
 	}
 
+	public static String createRouteReport(String routeName, List<Apartment> apartments) {
+		StringBuilder out = new StringBuilder();
+		out.append("# " + routeName + System.lineSeparator());
+		out.append(System.lineSeparator());
+		Collections.sort(apartments);
+		out.append("| Address | Members |" + System.lineSeparator());
+		out.append("| ------- | ------- |" + System.lineSeparator());
+		for (Apartment apt : apartments) {
+			out.append("| " + apt.getAddress() + "|" + StringUtils.join(apt.getResidents(), "; ") + "|"
+					+ System.lineSeparator());
+		}
+		return out.toString();
+	}
 }
