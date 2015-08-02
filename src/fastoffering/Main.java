@@ -27,11 +27,11 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		if (args.length < 1) {
 			System.err.println("Usage: <input csv>");
-			System.err.println("Example  ./fhe sampleInput/wardList.csv");
+			System.err.println("Example  ./fastoffering.sh sampleInput/wardList.csv");
 			System.exit(1);
 		}
 		String inputFile = args[0];
-		List<Column> columnsInCsv = Arrays.asList(Column.ADDRESS, Column.FULL_NAME);
+		List<Column> columnsInCsv = Arrays.asList(Column.FULL_NAME, Column.ADDRESS);
 		List<Person> persons = ParsingUtils.parseCsvFile(columnsInCsv, inputFile);
 		// System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);

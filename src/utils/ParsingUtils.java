@@ -66,14 +66,25 @@ public class ParsingUtils {
 			throw new Exception("unbalanced double quotes on line " + line);
 		return sb.toString();
 	}
+	
+	public static String[] padTokensToSize(String[] tokens, int minSize) {
+		String[] tokens2 = new String[minSize];
+		for (int i =0; i<minSize; i++) {
+			if (i<tokens.length) {
+				tokens2[i] = tokens[i];
+			} else {
+				tokens2[i] = "";
+			}
+		}
+		return tokens2;		
+	}
 
 	public static Person parsePerson(List<Column> columns, String[] tokens) throws Exception {
 		if (columns == null || tokens == null)
 			throw new IllegalArgumentException("Null input parameter: columns-" + (columns == null) + ", tokens-"
 					+ (tokens == null));
 		if (tokens.length < columns.size()) {
-			throw new IllegalArgumentException("At least " + columns.size() + " columns are required. "
-					+ Arrays.asList(tokens) + " only has " + tokens.length);
+			tokens = padTokensToSize(tokens, columns.size());
 		}
 
 		Map<Column, Integer> columnToIndex = new HashMap<Column, Integer>();
