@@ -16,9 +16,9 @@ import fhe.Column;
 import fhe.Person;
 
 public class ParsingUtils {
-	public static List<Person> parseCsvFile(List<Column> columnsInCsv, String path) throws Exception {
-		if (columnsInCsv == null || path == null) {
-			throw new IllegalArgumentException("null input param: columnsInCsv-" + (columnsInCsv == null) + ", path- "
+	public static List<Person> parseCsvFile(Map<Column,Integer> columnToIndex, String path) throws Exception {
+		if (columnToIndex== null || path == null) {
+			throw new IllegalArgumentException("null input param: columnsInCsv-" + (columnToIndex == null) + ", path- "
 					+ (path == null));
 		}
 		ArrayList<Person> persons = new ArrayList<Person>();
@@ -31,7 +31,8 @@ public class ParsingUtils {
 				if (line.length() > 0) {
 					line = preprocess(line);
 					String[] tokens = line.split(",");
-					persons.add(parsePerson(columnsInCsv, tokens));
+					Person person = parsePerson(columnToIndex, tokens);
+					persons.add(person);
 				}
 				line = in.readLine();
 			}
@@ -79,17 +80,12 @@ public class ParsingUtils {
 		return tokens2;		
 	}
 
-	public static Person parsePerson(List<Column> columns, String[] tokens) throws Exception {
-		if (columns == null || tokens == null)
-			throw new IllegalArgumentException("Null input parameter: columns-" + (columns == null) + ", tokens-"
+	public static Person parsePerson(Map<Column,Integer> columnToIndex, String[] tokens) throws Exception {
+		if (columnToIndex == null || tokens == null)
+			throw new IllegalArgumentException("Null input parameter: columns-" + (columnToIndex == null) + ", tokens-"
 					+ (tokens == null));
-		if (tokens.length < columns.size()) {
-			tokens = padTokensToSize(tokens, columns.size());
-		}
-
-		Map<Column, Integer> columnToIndex = new HashMap<Column, Integer>();
-		for (int i = 0; i < columns.size(); i++) {
-			columnToIndex.put(columns.get(i), i);
+		if (tokens.length < columnToIndex.size()) {
+			tokens = padTokensToSize(tokens, columnToIndex.size());
 		}
 
 		String fullName = null;

@@ -31,6 +31,9 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		if (args.length < 2) {
 			System.err.println("Usage: <input csv> <num of fhe groups>");
+			/*
+			To export the csv from lds.org go to My Ward > Directory > Export Households > Save File
+			 */
 			System.err.println("Example  ./fhe sampleInput/wardList.csv 6");
 			System.exit(1);
 		}
@@ -40,8 +43,20 @@ public class Main {
 		//Note: The Group column is optional and should be last
 		List<Column> columnsInCsv = Arrays.asList(Column.FULL_NAME, Column.PREFERRED_NAME, Column.PHONE, Column.EMAIL,
 			Column.ADDRESS, Column.MOVE_IN_DATE, Column.READ_INTO_WARD, Column.SEX, Column.BIRTH, Column.GROUP);
-		
-		List<Person> persons = ParsingUtils.parseCsvFile(columnsInCsv, inputFile);
+
+		Map<Column,Integer> columnToIndex = new HashMap<Column, Integer>();
+		columnToIndex.put(Column.FULL_NAME,0);
+		columnToIndex.put(Column.PREFERRED_NAME,1);
+		columnToIndex.put(Column.PHONE,2);
+		columnToIndex.put(Column.EMAIL,3);
+		columnToIndex.put(Column.ADDRESS,4);
+		columnToIndex.put(Column.MOVE_IN_DATE,5);
+		columnToIndex.put(Column.READ_INTO_WARD,6);
+		columnToIndex.put(Column.SEX,7);
+		columnToIndex.put(Column.BIRTH,8);
+		columnToIndex.put(Column.GROUP,9);
+
+		List<Person> persons = ParsingUtils.parseCsvFile(columnToIndex, inputFile);
 		System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
 		Collections.sort(apts);

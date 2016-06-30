@@ -5,12 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import utils.MarkdownRenderer;
 import utils.ParsingUtils;
@@ -31,8 +26,10 @@ public class Main {
 			System.exit(1);
 		}
 		String inputFile = args[0];
-		List<Column> columnsInCsv = Arrays.asList(Column.FULL_NAME, Column.ADDRESS);
-		List<Person> persons = ParsingUtils.parseCsvFile(columnsInCsv, inputFile);
+		Map<Column,Integer> columnToIndex = new HashMap<Column, Integer>();
+		columnToIndex.put(Column.FULL_NAME,1);
+		columnToIndex.put(Column.ADDRESS,4);
+		List<Person> persons = ParsingUtils.parseCsvFile(columnToIndex, inputFile);
 		// System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
 
