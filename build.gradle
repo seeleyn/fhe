@@ -24,6 +24,14 @@ jar.manifest {
 	)
 }
 
+test {
+	reports {
+		junitXml.enabled = false
+		html.enabled = true
+	}
+}
+
+
 // To run this from the command line type the following
 //
 // gradle run2 -Pinput=/tmp/directory.csv
