@@ -1,25 +1,23 @@
 package fastoffering;
 
+import org.pegdown.Extensions;
 import org.pegdown.PegDownProcessor;
+import utils.FileUtils;
 
 /**
  * Created by seeleyn on 7/1/16.
  */
 public class PdfPractice {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
-		String markdown =
-				"# Header 1\n" +
-				"## Header2\n" +
-				"\n" +
-				"| Address | Members |\n" +
-				"| ------- | ------- |\n" +
-				"| 131 Main, PROVO|Granger, Hermione|\n"+
-				"| 131 Elm, PROVO|Potter, Harry|\n";
-		System.out.println(markdown);
-		PegDownProcessor pegDownProcessor = new PegDownProcessor();
-		String html = pegDownProcessor.markdownToHtml(markdown);
+		String documentation = FileUtils.readFileIntoString(args[0]);
+
+		System.out.println(documentation);
+		PegDownProcessor processor = new PegDownProcessor(
+				Extensions.ALL);
+		String html = processor.markdownToHtml(documentation);
+		System.out.println("\n\n\n");
 		System.out.println(html);
 	}
 }
