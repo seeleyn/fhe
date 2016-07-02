@@ -2,6 +2,8 @@ package fastoffering;
 
 //import org.pegdown.Extensions;
 //import org.pegdown.PegDownProcessor;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import utils.FileUtils;
 
 import java.io.FileOutputStream;
@@ -33,6 +35,14 @@ public class PdfPractice {
 
 		document.open();
 		document.add(new Paragraph("A Hello World PDF document."));
+		PdfPTable table = new PdfPTable(2);
+		table.addCell("Address");
+		table.addCell("Members");
+		table.addCell("321 Main St");
+		table.addCell("Potter, Harry");
+		table.addCell("529 Elm");
+		table.addCell("Granger, Hermione");
+		document.add(table);
 		document.close(); // no need to close PDFwriter?
 
 	}

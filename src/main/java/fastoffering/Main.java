@@ -15,6 +15,7 @@ import fhe.Person;
 
 public class Main {
 
+	//To get the csv go to the web site and sign in. Navigate to My Ward, Directory, Export Households
 	/**
 	 * @param args
 	 *            the command line arguments
