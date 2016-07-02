@@ -86,6 +86,8 @@ public class Main {
 		String allRoutesReportMarkdown = MarkdownRenderer.createReportForAllRoutes("Fast Offering Routes - "
 				+ dateFormat.format(new Date()), apartmentMappings);
 		printStringToFile(outputDir + "/allRoutes.txt", allRoutesReportMarkdown);
+		PdfRenderer.createReportForAllRoutes("Fast Offering Routes - "
+				+ dateFormat.format(new Date()),apartmentMappings,outputDir+"/allRoutes.pdf");
 
 		// Print a separate report for each route (to be included in the fast
 		// offering route bags)
