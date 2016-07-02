@@ -2,14 +2,15 @@ package fastoffering;
 
 //import org.pegdown.Extensions;
 //import org.pegdown.PegDownProcessor;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.GrayColor;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import utils.FileUtils;
 
+import java.awt.*;
 import java.io.FileOutputStream;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+
 import com.itextpdf.text.pdf.PdfWriter;
 
 
@@ -34,14 +35,24 @@ public class PdfPractice {
 				new FileOutputStream("/tmp/HelloWorld.pdf"));
 
 		document.open();
-		document.add(new Paragraph("A Hello World PDF document."));
+		document.add(new Paragraph("Gryffindor"));
 		PdfPTable table = new PdfPTable(2);
-		table.addCell("Address");
-		table.addCell("Members");
+		table.setSpacingBefore(10);
+		table.setHeaderRows(1);
+		BaseColor tableHeaderColor = new GrayColor(0.8f);
+		PdfPCell addressHeader = new PdfPCell(new Phrase("Address"));
+		addressHeader.setBackgroundColor(tableHeaderColor);
+		table.addCell(addressHeader);
+
+		PdfPCell membersHeader = new PdfPCell(new Phrase("Members"));
+		membersHeader.setBackgroundColor(tableHeaderColor);
+		table.addCell(membersHeader);
+
 		table.addCell("321 Main St");
 		table.addCell("Potter, Harry");
 		table.addCell("529 Elm");
 		table.addCell("Granger, Hermione");
+		table.setSpacingAfter(10);
 		document.add(table);
 		document.close(); // no need to close PDFwriter?
 
