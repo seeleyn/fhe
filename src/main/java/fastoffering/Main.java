@@ -19,7 +19,8 @@ import utils.PdfRenderer;
 
 public class Main {
 
-	//To get the csv go to the web site and sign in. Navigate to My Ward, Directory, Export Households
+	// To get the csv go to the web site and sign in. Navigate to My Ward,
+	// Directory, Export Households
 	/**
 	 * @param args
 	 *            the command line arguments
@@ -31,9 +32,9 @@ public class Main {
 			System.exit(1);
 		}
 		String inputFile = args[0];
-		Map<Column,Integer> columnToIndex = new HashMap<Column, Integer>();
-		columnToIndex.put(Column.FULL_NAME,1);
-		columnToIndex.put(Column.ADDRESS,4);
+		Map<Column, Integer> columnToIndex = new HashMap<Column, Integer>();
+		columnToIndex.put(Column.FULL_NAME, 1);
+		columnToIndex.put(Column.ADDRESS, 4);
 		List<Person> persons = ParsingUtils.parseCsvFile(columnToIndex, inputFile);
 		// System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
@@ -73,28 +74,41 @@ public class Main {
 	}
 
 	private static void outputReports(Map<String, List<Apartment>> apartmentMappings) throws Exception {
-		File outputDir = new File("fastOfferingOutput");
-		if (!outputDir.exists()) {
-			if (!outputDir.mkdir()) {
+		final String parentDirName = "fastOfferingOutput";
+		File parentOutputDir = new File(parentDirName);
+		if (!parentOutputDir.exists()) {
+			if (!parentOutputDir.mkdir()) {
 				throw new IllegalStateException("Cannot create output directory");
 			}
 		}
-		System.out.println("Printing output to " + outputDir.getAbsolutePath());
+		System.out.println("Printing output to " + parentOutputDir.getAbsolutePath());
+		File pdfOutputDir = new File(parentDirName + File.separator + "pdf");
+		if (!pdfOutputDir.exists()) {
+			if (!pdfOutputDir.mkdir()) {
+				throw new IllegalStateException("Cannot create pdf output directory");
+			}
+		}
+		File mdOutputDir = new File(parentDirName + File.separator + "markdown");
+		if (!mdOutputDir.exists()) {
+			if (!mdOutputDir.mkdir()) {
+				throw new IllegalStateException("Cannot create markdown output directory");
+			}
+		}
 
 		// Print a report that contains information for all routes
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		String allRoutesReportMarkdown = MarkdownRenderer.createReportForAllRoutes("Fast Offering Routes - "
-				+ dateFormat.format(new Date()), apartmentMappings);
-		printStringToFile(outputDir + "/allRoutes.txt", allRoutesReportMarkdown);
-		PdfRenderer.createReportForAllRoutes("Fast Offering Routes - "
-				+ dateFormat.format(new Date()),apartmentMappings,outputDir+"/allRoutes.pdf");
+		String allRoutesReportMarkdown = MarkdownRenderer
+				.createReportForAllRoutes("Fast Offering Routes - " + dateFormat.format(new Date()), apartmentMappings);
+		printStringToFile(mdOutputDir + "/allRoutes.txt", allRoutesReportMarkdown);
+		PdfRenderer.createReportForAllRoutes("Fast Offering Routes - " + dateFormat.format(new Date()),
+			apartmentMappings, pdfOutputDir + "/allRoutes.pdf");
 
 		// Print a separate report for each route (to be included in the fast
 		// offering route bags)
 		for (String routeName : apartmentMappings.keySet()) {
 			String routeMarkdown = MarkdownRenderer.createRouteReport(routeName, apartmentMappings.get(routeName));
-			printStringToFile(outputDir + "/" + routeName.replaceAll("\\s", "") + ".txt", routeMarkdown);
-			String pdfFileName = outputDir + "/" + routeName.replaceAll("\\s", "") + ".pdf";
+			printStringToFile(mdOutputDir + "/" + routeName.replaceAll("\\s", "") + ".txt", routeMarkdown);
+			String pdfFileName = pdfOutputDir + "/" + routeName.replaceAll("\\s", "") + ".pdf";
 			PdfRenderer.createRouteReport(routeName, apartmentMappings.get(routeName), pdfFileName);
 		}
 	}
