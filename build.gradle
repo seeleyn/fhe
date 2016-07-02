@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.7
+version = '0.0'
+mainClassName = 'fastoffering.Main'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile(group: "org.pegdown", name: "pegdown", version: "1.6.0")
+}
+
+jar.manifest {
+	attributes(
+			"Manifest-Version"       : "0.0",
+			"Created-By"             : "Anonymous",
+			"Specification-Title"    : "Fast Offering Route Generator",
+			"Implementation-Title"   : "Fast Offering Route Generator",
+	)
+}
+
+// To run this from the command line type the following
+//
+// gradle run2 -Pinput=/tmp/directory.csv
+//
+// where basicSchema.json and conformingDocument.json are in src/resources
+task run2 (type:JavaExec) {
+	main = mainClassName
+	classpath = sourceSets.main.runtimeClasspath
+	if (project.hasProperty("input")) {
+		args(input)
+	}
+}
+
+
+// To run this from the command line type the following
+//
+// gradle run2 -Pinput=/tmp/directory.csv
+//
+// where basicSchema.json and conformingDocument.json are in src/resources
+task pdf(type:JavaExec) {
+	main = "fastoffering.PdfPractice"
+	classpath = sourceSets.main.runtimeClasspath
+	if (project.hasProperty("input")) {
+		args(input)
+	}
+}
