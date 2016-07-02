@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 version = '0.0'
 mainClassName = 'fastoffering.Main'
 
@@ -39,7 +39,7 @@ task run2 (type:JavaExec) {
 
 // To run this from the command line type the following
 //
-// gradle run2 -Pinput=/tmp/directory.csv
+// gradle pdf -Pinput=/tmp/directory.csv
 //
 // where basicSchema.json and conformingDocument.json are in src/resources
 task pdf(type:JavaExec) {
