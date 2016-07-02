@@ -7,11 +7,15 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 import utils.MarkdownRenderer;
 import utils.ParsingUtils;
 import fhe.Apartment;
 import fhe.Column;
 import fhe.Person;
+import utils.PdfRenderer;
 
 public class Main {
 
@@ -68,7 +72,7 @@ public class Main {
 		outputReports(apartmentMappings);
 	}
 
-	private static void outputReports(Map<String, List<Apartment>> apartmentMappings) throws FileNotFoundException {
+	private static void outputReports(Map<String, List<Apartment>> apartmentMappings) throws Exception {
 		File outputDir = new File("fastOfferingOutput");
 		if (!outputDir.exists()) {
 			if (!outputDir.mkdir()) {
@@ -88,6 +92,8 @@ public class Main {
 		for (String routeName : apartmentMappings.keySet()) {
 			String routeMarkdown = MarkdownRenderer.createRouteReport(routeName, apartmentMappings.get(routeName));
 			printStringToFile(outputDir + "/" + routeName.replaceAll("\\s", "") + ".txt", routeMarkdown);
+			String pdfFileName = outputDir + "/" + routeName.replaceAll("\\s", "") + ".pdf";
+			PdfRenderer.createRouteReport(routeName, apartmentMappings.get(routeName), pdfFileName);
 		}
 	}
 

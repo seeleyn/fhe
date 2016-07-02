@@ -1,14 +1,10 @@
 package fastoffering;
 
-//import org.pegdown.Extensions;
-//import org.pegdown.PegDownProcessor;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.GrayColor;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import utils.FileUtils;
-
-import java.awt.*;
 import java.io.FileOutputStream;
 
 import com.itextpdf.text.pdf.PdfWriter;
