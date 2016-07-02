@@ -6,3 +6,5 @@ dist/*
 .idea/*
 .idea/workspace.xml
 fastOfferingOutput/*
+build/*
+.gradle/*
