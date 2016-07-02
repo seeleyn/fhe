@@ -10,7 +10,8 @@ repositories {
 }
 
 dependencies {
-	compile(group: "org.pegdown", name: "pegdown", version: "1.6.0")
+	//compile(group: "org.pegdown", name: "pegdown", version: "1.6.0")
+	compile(group: "com.itextpdf", name: "itextpdf", version: "5.5.9")
 }
 
 jar.manifest {
