@@ -10,6 +10,7 @@ import java.util.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
+import fhe.Address;
 import utils.MarkdownRenderer;
 import utils.ParsingUtils;
 import fhe.Apartment;
@@ -50,6 +51,7 @@ public class Main {
 		routes.add(createRoute8());
 
 		List<Apartment> unassignedApartments = new ArrayList<Apartment>();
+		List<Apartment> noAddressApartments = new ArrayList<Apartment>();
 		for (Apartment apt : apts) {
 			boolean assignedToRoute = false;
 			for (Route route : routes) {
@@ -60,7 +62,12 @@ public class Main {
 				}
 			}
 			if (!assignedToRoute) {
-				unassignedApartments.add(apt);
+				Address address = apt.getAddress();
+				if (address != null && address.getStreet() != null && address.getStreet().length() != 0) {
+					unassignedApartments.add(apt);
+				} else {
+					noAddressApartments.add(apt);
+				}
 			}
 		}
 
@@ -69,6 +76,7 @@ public class Main {
 			apartmentMappings.put(route.name, route.apartments);
 		}
 		apartmentMappings.put("Unassigned", unassignedApartments);
+		apartmentMappings.put("No Address", noAddressApartments);
 
 		outputReports(apartmentMappings);
 	}

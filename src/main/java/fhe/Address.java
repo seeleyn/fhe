@@ -216,7 +216,7 @@ public class Address implements Comparable<Address> {
 
 	public String toString() {
 		if (number == 0 && street == null && unit == null && city == null) {
-			return "Unparseable address";
+			return "Unparseable or private address";
 		} else {
 			String unitStr = (unit != null) ? " Apt. " + unit : "";
 			return number + " " + street + unitStr + ", " + city;
