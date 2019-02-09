@@ -34,8 +34,8 @@ public class Main {
 		}
 		String inputFile = args[0];
 		Map<Column, Integer> columnToIndex = new HashMap<Column, Integer>();
-		columnToIndex.put(Column.FULL_NAME, 1);
-		columnToIndex.put(Column.ADDRESS, 4);
+		columnToIndex.put(Column.FULL_NAME, 0);
+		columnToIndex.put(Column.ADDRESS, 3);
 		List<Person> persons = ParsingUtils.parseCsvFile(columnToIndex, inputFile);
 		// System.out.println("read in " + persons.size() + " persons");
 		List<Apartment> apts = ParsingUtils.putIntoApts(persons);
