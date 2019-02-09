@@ -31,8 +31,12 @@ public class ParsingUtils {
 				if (line.length() > 0) {
 					line = preprocess(line);
 					String[] tokens = line.split(",");
-					Person person = parsePerson(columnToIndex, tokens);
-					persons.add(person);
+					try {
+						Person person = parsePerson(columnToIndex, tokens);
+						persons.add(person);
+					} catch (Exception exception) {
+						exception.printStackTrace();
+					}
 				}
 				line = in.readLine();
 			}
